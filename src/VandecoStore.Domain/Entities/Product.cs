@@ -36,7 +36,7 @@ namespace VandecoStore.Domain.Entities
 
         public void UpdatePrice(decimal price)
         {
-            AssertionConcern.AssertArgumentTrue(Price > 0, "The Field Price Must be greather than 0 !");
+            AssertionConcern.AssertArgumentTrue(price > 0, "The Field Price Must be greather than 0 !");
             Price = price;
         }
 

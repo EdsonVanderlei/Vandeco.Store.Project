@@ -33,8 +33,10 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.NotNull(user);
         }
 
-        [Fact]
-        public void User_WithInvalidParameters_ThrowsError()
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void User_WithInvalidParameters_ThrowsError(string name)
         {
             //Arrange
             var mail = _domainTestFixture.GenerateValidMail();
@@ -43,8 +45,7 @@ namespace VandecoStore.Domain.Tests.Tests
             var document = _domainTestFixture.GenerateValidDocument();
 
             //Act & Assert
-            Assert.Throws<InvalidOperationException>(() => new User(null, mail, phone, new DateTime(), address, document));
-            Assert.Throws<InvalidOperationException>(() => new User("", mail, phone, new DateTime(), address, document));
+            Assert.Throws<InvalidOperationException>(() => new User(name, mail, phone, new DateTime(), address, document));
         }
     }
 }
