@@ -1,5 +1,9 @@
-﻿using VandecoStore.Core;
+﻿using System.Diagnostics.Metrics;
+using System.IO;
+using System.Reflection.Emit;
+using VandecoStore.Core;
 using VandecoStore.Domain.Support;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -38,12 +42,14 @@ namespace VandecoStore.Domain.Entities
 
         public void UpdateAddress(Address address)
         {
-            address.Street = Street;
-            address.ZipCode = ZipCode;  
-            address.Country = Country;
-            address.State = State;
-            address.Number = Number;
-            address.Complement = Complement;
+            Street = address.Street;
+            ZipCode = address.ZipCode;
+            NeighboardHood = address.NeighboardHood;
+            City = address.City;
+            Country = address.Country;
+            State = address.State;
+            Number = address.Number;
+            Complement = address.Complement;
         }
 
         private void Validate()

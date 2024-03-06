@@ -5,55 +5,68 @@ namespace VandecoStore.Domain.Tests.Tests
 {
     public class AddressTests
     {
-        readonly User _user;
 
-        public AddressTests()
-        {
-            _user = new Mock<User>().Object;
-        }
-
+        public AddressTests(){}
 
         [Fact]
-        public void Address_WithValidParameters_CreateInstance()
+        public void Address_Validate_ThrowsArgumentException()
         {
-            //Arrange
-            string street = "123 Main St";
-            string zipCode = "12345";
-            string neighboardHood = "Downtown";
-            string city = "Metropolis";
-            string country = "USA";
-            string state = "NY";
-            string number = "10";
-            string complement = "Apt 101";
+            //Arrange 
+            var user = new Mock<User>().Object;
 
-            //Act 
-            var address = new Address(street, zipCode, neighboardHood, city, country, state, number, complement, _user);
+            // Act & Assert for Street
+            var ex = Assert.Throws<InvalidOperationException>(() => new Address(string.Empty, "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            Assert.Equal("The Field Street Must be provided!", ex.Message);
 
-            //Assert
-            Assert.NotNull(address);
-            Assert.Equal(street, address.Street);
-            Assert.Equal(zipCode, address.ZipCode);
-            Assert.Equal(neighboardHood, address.NeighboardHood);
-            Assert.Equal(city, address.City);
-            Assert.Equal(country, address.Country);
-            Assert.Equal(state, address.State);
-            Assert.Equal(number, address.Number);
-            Assert.Equal(complement, address.Complement);
+            // Act & Assert for ZipCode
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", string.Empty, "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            Assert.Equal("The Field ZipCode Must be provided!", ex.Message);
+
+            // Act & Assert for NeighboardHood
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", string.Empty, "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            Assert.Equal("The Field NeighboardHood Must be provided!", ex.Message);
+
+            // Act & Assert for City
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", string.Empty, "United States", "NY", "10A", "Near the park", user));
+            Assert.Equal("The Field City Must be provided!", ex.Message);
+
+            // Act & Assert for Country
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", string.Empty, "NY", "10A", "Near the park", user));
+            Assert.Equal("The Field Country Must be provided!", ex.Message);
+
+            // Act & Assert for State
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", string.Empty, "10A", "Near the park", user));
+            Assert.Equal("The Field State Must be provided!", ex.Message);
+
+            // Act & Assert for Number
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", string.Empty, "Near the park", user));
+            Assert.Equal("The Field Number Must be provided!", ex.Message);
+
+            // Act & Assert for Complement
+            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", string.Empty, user));
+            Assert.Equal("The Field Complement Must be provided!", ex.Message);
         }
 
-        [Theory]
-        [InlineData("", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park")]
-        [InlineData("123 Main St", "", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park")]
-        [InlineData("123 Main St", "12345", "", "Metropolis", "United States", "NY", "10A", "Near the park")]
-        [InlineData("123 Main St", "12345", "Downtown", "", "United States", "NY", "10A", "Near the park")]
-        [InlineData("123 Main St", "12345", "Downtown", "Metropolis", "", "NY", "10A", "Near the park")]
-        [InlineData("123 Main St", "12345", "Downtown", "Metropolis", "United States", "", "10A", "Near the park")]
-        [InlineData("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "", "Near the park")]
-        [InlineData("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "")]
-        public void Address_WithInvalidParameters_ThrowsArgumentException(string street, string zipCode, string neighborhood, string city, string country, string state, string number, string complement)
+        [Fact]
+        public void Address_UpdateAddress_AddressMustBeUpdated()
         {
-            // Arrange & Act & Assert
-            Assert.Throws<InvalidOperationException>(() => new Address(street, zipCode, neighborhood, city, country, state, number, complement, _user));
+            //Arrange 
+            var user = new Mock<User>().Object;
+            var address1 = new Mock<Address>().Object;
+            var address = new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user);
+
+            //Act
+            address.UpdateAddress(address1);
+
+            //Assert
+            Assert.Equal(address.City, address1.City);
+            Assert.Equal(address.Street, address1.Street);
+            Assert.Equal(address.ZipCode, address1.ZipCode);
+            Assert.Equal(address.Country, address1.Country);
+            Assert.Equal(address.State, address1.State);
+            Assert.Equal(address.NeighboardHood, address1.NeighboardHood);
+            Assert.Equal(address.Number, address1.Number);
+            Assert.Equal(address.Complement, address.Number);
         }
     }
 }

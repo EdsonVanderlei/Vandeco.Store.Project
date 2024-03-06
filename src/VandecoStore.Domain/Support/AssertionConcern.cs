@@ -88,6 +88,14 @@ namespace VandecoStore.Domain.Support
             }
         }
 
+        public static void AssertArgumentRange(decimal value, decimal minimum, decimal maximum, string message)
+        {
+            if (value < minimum || value > maximum)
+            {
+                throw new InvalidOperationException(message);
+            }
+        }
+
         public static void AssertArgumentRange(int value, int minimum, int maximum, string message)
         {
             if (value < minimum || value > maximum)
