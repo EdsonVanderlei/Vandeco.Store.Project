@@ -7,9 +7,9 @@ namespace VandecoStore.Domain.Entities
     {
         public string Name { get; private set; }
         public Document Document { get; set; }
-        public Mail Mail { get; private set; }   
-        public Phone PhoneNumber { get; private set; }
-        public Phone? FaxNumber { get; private set; }
+        public Mail Mail { get; private set; }
+        public Phone Phone { get; private set; }
+        public Phone? Fax { get; private set; }
         public DateTime BirthDate { get; private set; }
 
         //EF Relations
@@ -24,8 +24,8 @@ namespace VandecoStore.Domain.Entities
             Name = name;
             Cart = new Cart(this);
             Mail = mail;
-            PhoneNumber = phoneNumber;
-            FaxNumber = faxNumber;
+            Phone = phoneNumber;
+            Fax = faxNumber;
             BirthDate = birthDate;
             Address = address;
             Document = document;
@@ -36,18 +36,24 @@ namespace VandecoStore.Domain.Entities
 
         public bool HasFaxPhone()
         {
-            return PhoneNumber is not null;
+            return Phone is not null;
         }
 
-        public void ChangeNumber(Phone phone)
+        public void UpdatePrincipalPhone(Phone phone)
         {
-            PhoneNumber.UpdatePhone(phone);
+            Phone.UpdatePhone(phone);
+        }
+
+        public void UpdateFaxPhone(Phone phone)
+        {
+            Fax ??= phone;
+            Fax.UpdatePhone(phone);
         }
 
         private void Validate()
         {
             AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
-            AssertionConcern.AssertArgumentNotNull(PhoneNumber, "The Field PhoneNumber Must Be Provided !"); 
+            AssertionConcern.AssertArgumentNotNull(Phone, "The Field PhoneNumber Must Be Provided !");
         }
     }
 

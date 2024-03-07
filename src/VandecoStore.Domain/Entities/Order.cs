@@ -33,7 +33,7 @@ namespace VandecoStore.Domain.Entities
 
         public void RemoveProductOrder(ProductOrder productOrder)
         {
-            var productOrderFound = ProductOrders.FirstOrDefault(p = p => p.Id == productOrder.Id) ?? throw new InvalidOperationException("ProductOrder Not Found !");
+            var productOrderFound = ProductOrders.FirstOrDefault(p => p.Id == productOrder.Id) ?? throw new InvalidOperationException("ProductOrder Not Found !");
             ProductOrders.Remove(productOrderFound);
             CalculateTotalPrice();
         }

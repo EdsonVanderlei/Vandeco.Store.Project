@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Moq.AutoMock;
+using System.Net;
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Tests.Fixture;
 
@@ -17,7 +18,7 @@ namespace VandecoStore.Domain.Tests.Tests
             _domainTestFixture = domainTestFixture;
         }
 
-        [Trait("Entity","User")]
+        [Trait("Entity", "User")]
         [Fact]
         public void User_Validate_ThrowsException()
         {
@@ -49,15 +50,40 @@ namespace VandecoStore.Domain.Tests.Tests
 
         [Trait("Entity", "User")]
         [Fact]
-        public void User_UpdatePhone_PhoneHasBeenUpdated()
+        public void User_UpdatePhone_PhoneShouldBeUpdated()
         {
             //Arrange
-
+            var mail = _domainTestFixture.GenerateValidMail();
+            var phone = _domainTestFixture.GenerateValidPhone();
+            var address = _domainTestFixture.GenerateValidAddress();
+            var document = _domainTestFixture.GenerateValidDocument();
+            var user = new User("Nome", mail, phone, new DateTime(), address, document);
+            var phoneToUpdate = new Phone(22, 56, "999999999");
 
             //Act
-
+            user.UpdatePrincipalPhone(phoneToUpdate);
 
             //Assert
+            Assert.Equal(22, user.Phone.AreaCode);
+            Assert.Equal(56, user.Phone.CountryCode);
+            Assert.Equal("999999999", user.Phone.PhoneNumber);
+        }
+
+        [Trait("Entity", "User")]
+        [Fact]
+        public void User_UpdateFaxPhone_FaxPhoneShoulbBeUpdated()
+        {
+            //Arrange
+            var user = new Mock<User>().Object;
+            var phone = new Phone(22, 56, "999999999");
+
+            //Act
+            user.UpdateFaxPhone(phone);
+
+            //Assert
+            Assert.Equal(22, user.Fax.AreaCode);
+            Assert.Equal(56, user.Fax.CountryCode);
+            Assert.Equal("999999999", user.Fax.PhoneNumber);
         }
     }
 }

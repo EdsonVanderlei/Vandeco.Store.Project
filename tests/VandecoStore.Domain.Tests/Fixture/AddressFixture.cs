@@ -8,6 +8,16 @@ namespace VandecoStore.Domain.Tests.Fixture
 
     public class DomainTestFixture : IDisposable
     {
+        public User GenerateValidUser()
+        {
+            var mail = GenerateValidMail();
+            var phone = GenerateValidPhone();
+            var address = GenerateValidAddress();
+            var document = GenerateValidDocument();
+
+            return new User("Nome", mail, phone, new DateTime(), address, document);
+        }
+
         public Address GenerateValidAddress()
         {
             var user = new Mock<User>();

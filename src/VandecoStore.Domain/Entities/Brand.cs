@@ -9,7 +9,7 @@ namespace VandecoStore.Domain.Entities
         public string Description { get; private set; }
 
         //EF Relation 
-        public List<Product> Products { get; private set; }
+        public List<Product> Products { get; private set; } = [];
 
         public Brand(string name, string description)
         {
@@ -22,8 +22,8 @@ namespace VandecoStore.Domain.Entities
 
         private void Validate()
         {
-            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must be Provided !");
-            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Name Must be Provided !");
+            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
+            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Description Must Be Provided !");
         }
     }
 }
