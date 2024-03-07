@@ -8,6 +8,7 @@ namespace VandecoStore.Domain.Tests.Tests
 
         public AddressTests(){}
 
+        [Trait("Entity", "Address")]
         [Fact]
         public void Address_Validate_ThrowsArgumentException()
         {
@@ -47,6 +48,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal("The Field Complement Must be provided!", ex.Message);
         }
 
+        [Trait("Entity", "Address")]
         [Fact]
         public void Address_UpdateAddress_AddressMustBeUpdated()
         {

@@ -17,6 +17,7 @@ namespace VandecoStore.Domain.Tests.Tests
             _domainTestFixture = domainTestFixture;
         }
 
+        [Trait("Entity","User")]
         [Fact]
         public void User_Validate_Throws()
         {
@@ -35,6 +36,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal("The Field PhoneNumber Must Be Provided !", ex.Message);
         }
 
+        [Trait("Entity", "User")]
         [Fact]
         public void User_HasFaxPhone_ReturnFalse()
         {
@@ -45,6 +47,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.False(user.HasFaxPhone());
         }
 
+        [Trait("Entity", "User")]
         [Fact]
         public void User_UpdatePhone_PhoneHasBeenUpdated()
         {
