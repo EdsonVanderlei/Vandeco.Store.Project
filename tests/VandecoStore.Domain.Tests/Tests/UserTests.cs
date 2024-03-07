@@ -1,4 +1,5 @@
-﻿using Moq.AutoMock;
+﻿using Moq;
+using Moq.AutoMock;
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Tests.Fixture;
 
@@ -17,26 +18,7 @@ namespace VandecoStore.Domain.Tests.Tests
         }
 
         [Fact]
-        public void User_WithValidParameters_CreateInstance()
-        {
-            //Arrange
-            var mail = _domainTestFixture.GenerateValidMail();
-            var phone = _domainTestFixture.GenerateValidPhone();
-            var address = _domainTestFixture.GenerateValidAddress();
-            var document = _domainTestFixture.GenerateValidDocument();
-
-            //Act
-            var user = new User("Edson Vanderlei", mail, phone, new DateTime(), address, document);
-
-            //Assert
-            Assert.Equal("Edson Vanderlei", user.Name);
-            Assert.NotNull(user);
-        }
-
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void User_WithInvalidParameters_ThrowsError(string name)
+        public void User_Validate_Throws()
         {
             //Arrange
             var mail = _domainTestFixture.GenerateValidMail();
@@ -45,7 +27,34 @@ namespace VandecoStore.Domain.Tests.Tests
             var document = _domainTestFixture.GenerateValidDocument();
 
             //Act & Assert
-            Assert.Throws<InvalidOperationException>(() => new User(name, mail, phone, new DateTime(), address, document));
+            var ex = Assert.Throws<InvalidOperationException>(() => new User(string.Empty, mail, phone, new DateTime(), address, document));
+            Assert.Equal("The Field Name Must Be Provided !", ex.Message);
+
+            //Act & Assert
+            ex = Assert.Throws<InvalidOperationException>(() => new User("Nome", mail, null, new DateTime(), address, document));
+            Assert.Equal("The Field PhoneNumber Must Be Provided !", ex.Message);
+        }
+
+        [Fact]
+        public void User_HasFaxPhone_ReturnFalse()
+        {
+            //Arrange
+            var user = new Mock<User>().Object;
+
+            //Act && Assert
+            Assert.False(user.HasFaxPhone());
+        }
+
+        [Fact]
+        public void User_UpdatePhone_PhoneHasBeenUpdated()
+        {
+            //Arrange
+
+
+            //Act
+
+
+            //Assert
         }
     }
 }

@@ -39,15 +39,15 @@ namespace VandecoStore.Domain.Entities
             return PhoneNumber is not null;
         }
 
-        public void ChangeNumber(Phone phoneNumber)
+        public void ChangeNumber(Phone phone)
         {
-            PhoneNumber.UpdatePhone(phoneNumber);
+            PhoneNumber.UpdatePhone(phone);
         }
 
         private void Validate()
         {
-            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field PhoneNumber Mus be Provided !");
-            AssertionConcern.AssertArgumentNotNull(PhoneNumber, "The Field PhoneNumber Mus be Provided !"); 
+            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
+            AssertionConcern.AssertArgumentNotNull(PhoneNumber, "The Field PhoneNumber Must Be Provided !"); 
         }
     }
 

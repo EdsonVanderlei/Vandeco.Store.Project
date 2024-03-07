@@ -8,7 +8,7 @@ namespace VandecoStore.Domain.Entities
         public decimal TotalPrice { get; private set; }
 
         //EF Relations
-        public List<ProductOrder> ProductOrders { get; private set; }
+        public List<ProductOrder> ProductOrders { get; private set; } = [];
         public Address Address { get; private set; }
         public User User { get; private set; }
         public Payment Payment { get; private set; }
@@ -33,7 +33,8 @@ namespace VandecoStore.Domain.Entities
 
         public void RemoveProductOrder(ProductOrder productOrder)
         {
-            ProductOrders.Remove(productOrder);
+            var productOrderFound = ProductOrders.FirstOrDefault(p = p => p.Id == productOrder.Id) ?? throw new InvalidOperationException("ProductOrder Not Found !");
+            ProductOrders.Remove(productOrderFound);
             CalculateTotalPrice();
         }
 

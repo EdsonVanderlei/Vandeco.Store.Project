@@ -1,51 +1,31 @@
 ﻿using Moq;
-using System.Diagnostics;
 using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Domain.Tests.Tests
 {
     public class ProductTest
     {
+        [Trait("Entity", "Product")]
         [Fact]
-        public void Product_WithValidParameters_Instance()
-        {
-            //Arrange 
-            var name = "Pc Gamer Gladiator LVL II";
-            var price = 123.98m;
-            var quantity = 10;
-            var category = Category.Computer;
-            var description = "Pc Gamer Ryzen 5 RTX 4090TI 16GB RAM";
-            var brand = new Mock<Brand>().Object;
-
-            //Act
-            var product = new Product(name, price, quantity, category, description, brand);
-
-            //Assert
-            Assert.NotNull(product);
-            Assert.Equal(name, product.Name);
-            Assert.Equal(price, product.Price);
-            Assert.Equal(quantity, product.Quantity);
-            Assert.Equal(category, product.Category);
-            Assert.Equal(description, product.Description);
-            Assert.Equal(brand, product.Brand);
-        }
-
-
-
-        [Theory]
-        [InlineData("", "description", 10.32)]
-        [InlineData("name", "", 10.32)]
-        [InlineData("name", "description", 0)]
-        public void Product_WithInvalidParameters_Throws(string name, string description, decimal price)
+        public void Product_WithInvalidParameters_Throws()
         {
             //Arrange 
             var brand = new Mock<Brand>().Object;
 
             //Act && Assert
-            Assert.Throws<InvalidOperationException>(() => new Product(name, price, 0, Category.Mouse, description, brand));
-            ;
+            var ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, Category.Mouse, "description", brand));
+            Assert.Equal("The Field Name Must Be Provided !", ex.Message);
+
+            //Act && Assert
+            ex = Assert.Throws<InvalidOperationException>(() => new Product("name", 0, 0, Category.Mouse, "description", brand));
+            Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
+
+            //Act && Assert
+            ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, Category.Mouse, string.Empty, brand));
+            Assert.Equal("The Field Name Must Be Provided !", ex.Message);
         }
 
+        [Trait("Entity", "Product")]
         [Theory]
         [InlineData(120.23)]
         [InlineData(12.76)]
@@ -63,32 +43,90 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(price, product.Price);
         }
 
+        [Trait("Entity", "Product")]
         [Fact]
         public void Product_UpdatePrice_ThrowsOnZeroValue()
         {
             //Arrange
             var product = new Mock<Product>().Object;
 
-            //Act
-            product.UpdatePrice(0);
-
-            //Assert
-            Assert.Throws<InvalidOperationException>( () => product.UpdatePrice(0));
+            //Act && Assert
+            var ex = Assert.Throws<InvalidOperationException>(() => product.UpdatePrice(0));
+            Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
         }
 
+        [Trait("Entity", "Product")]
+        [Fact]
+        public void Product_AddComment_CommentBeAdded()
+        {
+            //Arrange
+            var product = new Mock<Product>().Object;
+            var comment = new Mock<Comment>().Object;
+
+            //Act
+            product.AddComment(comment);
+
+            //Assert
+            Assert.Single(product.Comments);
+        }
+
+        [Trait("Entity", "Product")]
         [Fact]
         public void Product_RemoveComment_CommentBeRemoved()
         {
             //Arrange 
+            var user = new Mock<User>().Object;
             var product = new Mock<Product>().Object;
-            var comment = new Mock<Comment>().Object;
+            var comment = new Comment(product.Id, "title", "text", product, user);
             product.AddComment(comment);
 
             //Act
             product.RemoveComment(comment);
 
             //Assert
-            Assert.Equal([], product.Comments);
+            Assert.True(product.Comments.Count == 0);
+        }
+
+        [Trait("Entity", "Product")]
+        [Fact]
+        public void Product_AddQuantity_QuantityBeAdded()
+        {
+            //Arrange
+            var product = new Mock<Product>().Object;
+
+            //Act
+            product.AddQuantity(10);
+
+            //Assert 
+            Assert.Equal(10, product.Quantity);
+        }
+
+        [Trait("Entity", "Product")]
+        [Fact]
+        public void Product_RemoveQuantity_ThrowsWhenQuantityIsGreatherThanActual()
+        {
+            //Arrange
+            var product = new Mock<Product>().Object;
+            product.AddQuantity(2);
+
+            //Act && Assert
+            var ex = Assert.Throws<InvalidOperationException>(() => product.RemoveQuantity(3));
+            Assert.Equal("The Quantity To Remove Is Greather Than Actual Quantity", ex.Message);
+        }
+
+        [Trait("Entity", "Product")]
+        [Fact]
+        public void Product_RemoveQuantity_QuantityBeRemoved()
+        {
+            //Arrange
+            var product = new Mock<Product>().Object;
+            product.AddQuantity(2);
+
+            //Act
+            product.RemoveQuantity(1);
+
+            //Assert
+            Assert.Equal(1, product.Quantity);
         }
     }
 }

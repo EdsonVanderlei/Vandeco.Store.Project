@@ -15,8 +15,8 @@ namespace VandecoStore.Domain.Entities
 
         //EF relation
         public Brand Brand { get; private set; }
-        public List<Comment> Comments { get; private set; }
-        public List<ProductOrder> ProductOrders { get; private set; }   
+        public List<Comment> Comments { get; private set; } = [];
+        public List<ProductOrder> ProductOrders { get; private set; } = [];
 
         public Product(string name, decimal price, int quantity, Category category, string description, Brand brand)
         {
@@ -27,7 +27,6 @@ namespace VandecoStore.Domain.Entities
             Description = description;
             Rate = 0;
             Brand = brand;
-            Comments = [];
             BrandId = brand.Id;
             Validate();
         }
@@ -36,12 +35,13 @@ namespace VandecoStore.Domain.Entities
 
         public void UpdatePrice(decimal price)
         {
-            AssertionConcern.AssertArgumentRange(price, 0.01m, decimal.MaxValue, "The Field Price Must be greather than 0 !");
+            AssertionConcern.AssertArgumentRange(price, 0.01m, decimal.MaxValue, "The Field Price Must Be Greather Than 0 !");
             Price = price;
         }
 
         public void RemoveComment(Comment comment)
         {
+           var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new InvalidOperationException("Comment Not Found !");
            Comments.Remove(comment);
         }
 
@@ -62,22 +62,22 @@ namespace VandecoStore.Domain.Entities
 
         public void RemoveQuantity(int quantity)
         {
-            AssertionConcern.AssertArgumentTrue(ValidateQuantity(quantity), "The quantity to remove is greather than actual quantity");
+            AssertionConcern.AssertStateFalse(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity");
 
             Quantity -= Math.Abs(quantity);
         }
 
         public void ChangeDescription(string description)
         {
-            AssertionConcern.AssertArgumentNotEmpty(description, "The Field Description Must be Provided !");
+            AssertionConcern.AssertArgumentNotEmpty(description, "The Field Description Must Be Provided !");
             Description = description;
         }
 
         private void Validate()
         {
-            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must be Provided !");
-            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Name Must be Provided !");
-            AssertionConcern.AssertArgumentTrue(Price > 0, "The Field Price Must be greather than 0 !");
+            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
+            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Description Must Be Provided !");
+            AssertionConcern.AssertArgumentRange(Price,0.01m,decimal.MaxValue, "The Field Price Must Be Greather Than 0 !");
         }
     }
 }
