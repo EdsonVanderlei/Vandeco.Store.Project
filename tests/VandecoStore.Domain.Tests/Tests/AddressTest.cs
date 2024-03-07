@@ -10,7 +10,7 @@ namespace VandecoStore.Domain.Tests.Tests
 
         [Trait("Entity", "Address")]
         [Fact]
-        public void Address_Validate_ThrowsArgumentException()
+        public void Address_Validate_ThrowsException()
         {
             //Arrange 
             var user = new Mock<User>().Object;

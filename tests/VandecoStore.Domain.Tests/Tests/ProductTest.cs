@@ -7,7 +7,7 @@ namespace VandecoStore.Domain.Tests.Tests
     {
         [Trait("Entity", "Product")]
         [Fact]
-        public void Product_WithInvalidParameters_Throws()
+        public void Product_Validate_ThrowsExceptions()
         {
             //Arrange 
             var brand = new Mock<Brand>().Object;

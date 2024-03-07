@@ -19,7 +19,7 @@ namespace VandecoStore.Domain.Tests.Tests
 
         [Trait("Entity","User")]
         [Fact]
-        public void User_Validate_Throws()
+        public void User_Validate_ThrowsException()
         {
             //Arrange
             var mail = _domainTestFixture.GenerateValidMail();
