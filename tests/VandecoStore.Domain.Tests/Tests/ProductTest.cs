@@ -87,6 +87,21 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.True(product.Comments.Count == 0);
         }
 
+        [Fact]
+        public void Product_RemoveComment_ThrowsException()
+        {
+            //Arrange 
+            var user = new Mock<User>().Object;
+            var product = new Mock<Product>().Object;
+            var comment = new Comment(product.Id, "title", "text", product, user);
+            var commentToRemove = new Comment(product.Id, "title", "text", product, user);
+            product.AddComment(comment);
+
+            //Act && Assert
+            var ex = Assert.Throws<InvalidOperationException>(() => product.RemoveComment(commentToRemove));
+            Assert.Equal("Comment Not Found !", ex.Message);
+        }
+
         [Trait("Entity", "Product")]
         [Fact]
         public void Product_AddQuantity_QuantityBeAdded()

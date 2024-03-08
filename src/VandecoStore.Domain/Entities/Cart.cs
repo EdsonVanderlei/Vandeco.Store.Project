@@ -1,5 +1,4 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -7,7 +6,7 @@ namespace VandecoStore.Domain.Entities
     {
         public Guid UserId { get; private set; }
         public User User { get; private set; }
-        public List<CartItem> CartItems { get; private set; }
+        public List<CartItem> CartItems { get; private set; } = [];
 
         public Cart(User user)
         {
@@ -15,41 +14,18 @@ namespace VandecoStore.Domain.Entities
             User = user;
             CartItems = [];
         }
-    }
 
-    public class CartItem : Entity
-    {
-        public Product Product { get; private set; }
-        public int Quantity { get; private set; }
-
-        protected CartItem() { }
-
-        public CartItem(Product product, int quantity)
+        public void AddCartItem(CartItem cartItem, int quantity)
         {
-            Product = product;
-            Quantity = quantity;
-            Validate();
+            var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(cartItem.Product));
+            cartItemFound?.AddProduct(quantity);
+            CartItems.Add(cartItem);
         }
 
-        public void AddProduct(int quantity)
+        public void RemoveCartItem(CartItem cartItem, int quantity)
         {
-            Quantity += Math.Abs(quantity);
-        }
-
-        public void RemoveProduct(int quantity)
-        {
-            AssertionConcern.AssertArgumentTrue(ValidateQuantity(quantity), "The quantity to remove is greather than actual quantity !");
-            Quantity -= Math.Abs(quantity);
-        }
-
-        private bool ValidateQuantity(int quantity)
-        {
-            return Product.Quantity - Math.Abs(quantity) <= 0;
-        }
-        
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentTrue(Quantity > 0, "The Field Quantity Must Be Greather than 0 !");
+            var cartItemFound = CartItems.FirstOrDefault(p => p.Equals(cartItem)) ?? throw new InvalidOperationException("Item Not Found In Cart");
+            CartItems.Remove(cartItemFound);
         }
     }
 }
