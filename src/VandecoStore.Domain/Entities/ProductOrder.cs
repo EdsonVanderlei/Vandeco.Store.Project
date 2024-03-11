@@ -14,15 +14,23 @@ namespace VandecoStore.Domain.Entities
         public Order Order { get; private set; }
         public Product Product { get; private set; }
 
-        public ProductOrder(int quantity, decimal price, Order order, Product product)
+        public ProductOrder(Order order, Product product, int quantity)
         {
             ProductId = product.Id;
             OrderId = order.Id;
             Quantity = quantity;
-            Price = price;
+            Price = product.Price;
             Order = order;
             Product = product;
+            Validate();
         }
+
         protected ProductOrder() { }
+
+        private void Validate()
+        {
+            AssertionConcern.AssertArgumentRange(Quantity, 1, int.MaxValue,"Quantity Must Be Greather Than 0");
+        }
+
     }
 }

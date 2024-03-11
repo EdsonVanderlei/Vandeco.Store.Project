@@ -21,12 +21,12 @@ namespace VandecoStore.Domain.Tests.Fixture
         public ProductOrder GenerateValidProductOrder(int quantity, decimal price)
         {
             var product = GenerateValidProduct(quantity);
-            return new ProductOrder(quantity, price, new Mock<Order>().Object, product);
+            return new ProductOrder(new Mock<Order>().Object, product, quantity);
         }
 
         public Product GenerateValidProduct(int quantity)
         {
-            return new Product("Product",100, quantity, Category.Computer,"Description", new Brand("Marca 1","Description"));
+            return new Product("Product", 100, quantity, Category.Computer, "Description", new Brand("Marca 1", "Description"));
         }
 
         public List<Address> GenerateValidAddress()
@@ -52,7 +52,7 @@ namespace VandecoStore.Domain.Tests.Fixture
 
         public void Dispose()
         {
-            
+
         }
     }
 }

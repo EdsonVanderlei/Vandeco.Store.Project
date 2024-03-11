@@ -5,7 +5,7 @@ namespace VandecoStore.Domain.Entities
 {
     public class Payment : Entity
     {
-        public PaymentTypeEnum PaymentType  { get; private set; }
+        public PaymentTypeEnum PaymentType { get; private set; }
         public int Installments { get; private set; }
         public int InstallmentsPayed { get; private set; }
 
@@ -21,7 +21,7 @@ namespace VandecoStore.Domain.Entities
         }
 
         protected Payment() { }
-        
+
         public void PayInstallment(int quantity)
         {
             if (Installments < InstallmentsPayed + quantity) throw new InvalidOperationException("Installments is less than InstallmentsPayed !");
@@ -30,7 +30,7 @@ namespace VandecoStore.Domain.Entities
 
         private void Validate()
         {
-            AssertionConcern.AssertArgumentTrue(Installments > 0, "The Field Installments Must Be Greather than 0");
+            AssertionConcern.AssertArgumentTrue(Installments > 0, "The Field Installments Must Be Greather Than 0");
         }
     }
 
