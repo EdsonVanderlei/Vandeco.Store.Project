@@ -39,7 +39,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(quantity);
+            var product = _fixture.GenerateValidProduct(quantity,10);
             cart.AddCartItem(product, quantity);
 
             //Act
@@ -55,7 +55,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(1);
+            var product = _fixture.GenerateValidProduct(1,10);
             cart.AddCartItem(product, 3);
 
             //Act
@@ -70,7 +70,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(1);
+            var product = _fixture.GenerateValidProduct(1,10);
             cart.AddCartItem(product, 3);
 
             //Act

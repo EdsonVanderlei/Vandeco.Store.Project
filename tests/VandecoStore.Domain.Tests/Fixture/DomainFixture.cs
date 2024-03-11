@@ -20,13 +20,13 @@ namespace VandecoStore.Domain.Tests.Fixture
 
         public ProductOrder GenerateValidProductOrder(int quantity, decimal price)
         {
-            var product = GenerateValidProduct(quantity);
+            var product = GenerateValidProduct(quantity,price);
             return new ProductOrder(new Mock<Order>().Object, product, quantity);
         }
 
-        public Product GenerateValidProduct(int quantity)
+        public Product GenerateValidProduct(int quantity,decimal price)
         {
-            return new Product("Product", 100, quantity, Category.Computer, "Description", new Brand("Marca 1", "Description"));
+            return new Product("Product", price, quantity, Category.Computer, "Description", new Brand("Marca 1", "Description"));
         }
 
         public List<Address> GenerateValidAddress()
