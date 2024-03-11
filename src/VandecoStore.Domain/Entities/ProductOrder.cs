@@ -17,7 +17,7 @@ namespace VandecoStore.Domain.Entities
         public ProductOrder(int quantity, decimal price, Order order, Product product)
         {
             ProductId = product.Id;
-            OrderId = Order.Id;
+            OrderId = order.Id;
             Quantity = quantity;
             Price = price;
             Order = order;

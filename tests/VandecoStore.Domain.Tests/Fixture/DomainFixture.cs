@@ -18,10 +18,21 @@ namespace VandecoStore.Domain.Tests.Fixture
             return new User("Nome", mail, phone, new DateTime(), address, document);
         }
 
-        public Address GenerateValidAddress()
+        public ProductOrder GenerateValidProductOrder(int quantity, decimal price)
+        {
+            var product = GenerateValidProduct(quantity);
+            return new ProductOrder(quantity, price, new Mock<Order>().Object, product);
+        }
+
+        public Product GenerateValidProduct(int quantity)
+        {
+            return new Product("Product",100, quantity, Category.Computer,"Description", new Brand("Marca 1","Description"));
+        }
+
+        public List<Address> GenerateValidAddress()
         {
             var user = new Mock<User>();
-            return new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user.Object);
+            return new List<Address> { new("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user.Object) };
         }
 
         public Document GenerateValidDocument()

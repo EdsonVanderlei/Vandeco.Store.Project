@@ -12,20 +12,28 @@ namespace VandecoStore.Domain.Entities
         {
             UserId = user.Id;
             User = user;
-            CartItems = [];
         }
 
-        public void AddCartItem(CartItem cartItem, int quantity)
+        protected Cart() { }
+
+        public void AddCartItem(Product product, int quantity)
         {
-            var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(cartItem.Product));
-            cartItemFound?.AddProduct(quantity);
-            CartItems.Add(cartItem);
+
+            var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product));
+            if(cartItemFound is null)
+            {
+                CartItems.Add(new CartItem(product,quantity));
+                return;
+            }
+            cartItemFound.AddQuantity(quantity);
         }
 
-        public void RemoveCartItem(CartItem cartItem, int quantity)
+        public void RemoveCartItem(Product product, int quantity)
         {
-            var cartItemFound = CartItems.FirstOrDefault(p => p.Equals(cartItem)) ?? throw new InvalidOperationException("Item Not Found In Cart");
-            CartItems.Remove(cartItemFound);
+            var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product)) ?? throw new InvalidOperationException("Item Not Found In Cart");
+            cartItemFound.RemoveQuantity(quantity);
+            if(cartItemFound.Quantity == 0)
+                CartItems.Remove(cartItemFound);
         }
     }
 }

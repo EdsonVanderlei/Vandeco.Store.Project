@@ -16,11 +16,12 @@ namespace VandecoStore.Domain.Entities
         public string Complement { get; private set; }
 
         //EF Relations 
+        public List<Order> Orders { get; private set; } = [];
         public User User { get; private set; }
 
         protected Address() { }
 
-        public Address(string street, string zipCode, string neighboardHood, string city, string country, string state, string number, string complement,User user)
+        public Address(string street, string zipCode, string neighboardHood, string city, string country, string state, string number, string complement, User user)
         {
             User = user;
             UserId = user.Id;

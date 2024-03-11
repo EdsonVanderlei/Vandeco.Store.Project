@@ -77,7 +77,7 @@ namespace VandecoStore.Domain.Tests.Tests
             //Arrange 
             var user = new Mock<User>().Object;
             var product = new Mock<Product>().Object;
-            var comment = new Comment(product.Id, "title", "text", product, user);
+            var comment = new Comment("title", "text", product, user);
             product.AddComment(comment);
 
             //Act
@@ -93,8 +93,8 @@ namespace VandecoStore.Domain.Tests.Tests
             //Arrange 
             var user = new Mock<User>().Object;
             var product = new Mock<Product>().Object;
-            var comment = new Comment(product.Id, "title", "text", product, user);
-            var commentToRemove = new Comment(product.Id, "title", "text", product, user);
+            var comment = new Comment("title", "text", product, user);
+            var commentToRemove = new Comment("title", "text", product, user);
             product.AddComment(comment);
 
             //Act && Assert

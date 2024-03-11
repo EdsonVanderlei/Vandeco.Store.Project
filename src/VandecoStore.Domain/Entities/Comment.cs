@@ -14,9 +14,8 @@ namespace VandecoStore.Domain.Entities
         public Product Product { get; private set; }
         public User User { get; private set; }
 
-        public Comment(Guid productId, string title, string text, Product product, User user)
+        public Comment(string title, string text, Product product, User user)
         {
-            ProductId = productId;
             Title = title;
             Text = text;
             Product = product;
@@ -30,8 +29,8 @@ namespace VandecoStore.Domain.Entities
 
         private void Validate()
         {
-            AssertionConcern.AssertArgumentNotEmpty(Title, "The Field Title Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(Text, "The Field Text Must be provided!");
+            AssertionConcern.AssertArgumentNotEmpty(Title, "The Field Title Must Be Provided!");
+            AssertionConcern.AssertArgumentNotEmpty(Text, "The Field Text Must Be Provided!");
         }
     }
 }

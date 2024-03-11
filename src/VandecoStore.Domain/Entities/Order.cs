@@ -4,7 +4,9 @@ namespace VandecoStore.Domain.Entities
 {
     public class Order : Entity
     {
+        public Guid AddressId {  get; private set; }
         public Guid PaymentId { get; private set; }
+        public Guid UserId { get; private set; }
         public decimal TotalPrice { get; private set; }
 
         //EF Relations
@@ -13,14 +15,15 @@ namespace VandecoStore.Domain.Entities
         public User User { get; private set; }
         public Payment Payment { get; private set; }
 
-        public Order(Address address, User user, List<ProductOrder> productOrders, Payment payment)
+        public Order(User user, List<ProductOrder> productOrders, Payment payment, Address address)
         {
-            ProductOrders = productOrders;
-            Address = address;
+            ProductOrders.AddRange(productOrders);
             User = user;
-            CalculateTotalPrice();
+            Address = address;
+            AddressId = address.Id;
             Payment = payment;
             PaymentId = payment.Id;
+            CalculateTotalPrice();
         }
 
         protected Order() { }
@@ -31,9 +34,14 @@ namespace VandecoStore.Domain.Entities
             CalculateTotalPrice();
         }
 
+        public void ChangeAddress(Address address)
+        {
+            Address = address;
+        }
+
         public void RemoveProductOrder(ProductOrder productOrder)
         {
-            var productOrderFound = ProductOrders.FirstOrDefault(p => p.Id == productOrder.Id) ?? throw new InvalidOperationException("ProductOrder Not Found !");
+            var productOrderFound = ProductOrders.FirstOrDefault(p => p.Equals(productOrder)) ?? throw new InvalidOperationException("ProductOrder Not Found !");
             ProductOrders.Remove(productOrderFound);
             CalculateTotalPrice();
         }

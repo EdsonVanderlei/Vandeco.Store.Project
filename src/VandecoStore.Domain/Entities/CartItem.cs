@@ -17,20 +17,21 @@ namespace VandecoStore.Domain.Entities
             Validate();
         }
 
-        public void AddProduct(int quantity)
+        public void AddQuantity(int quantity)
         {
             Quantity += Math.Abs(quantity);
         }
-        public void RemoveProduct(int quantity)
+
+        public void RemoveQuantity(int quantity)
         {
             AssertionConcern.AssertArgumentTrue(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity !");
             Quantity -= Math.Abs(quantity);
 
         }
 
-        private bool ValidateQuantity(int quantity)
+        public bool ValidateQuantity(int quantity)
         {
-            return Product.Quantity - Math.Abs(quantity) <= 0;
+            return Quantity - Math.Abs(quantity) >= 0;
         }
 
         private void Validate()

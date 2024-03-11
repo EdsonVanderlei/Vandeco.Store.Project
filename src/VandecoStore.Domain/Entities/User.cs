@@ -13,13 +13,13 @@ namespace VandecoStore.Domain.Entities
         public DateTime BirthDate { get; private set; }
 
         //EF Relations
-        public Address Address { get; private set; }
+        public List<Address> Address { get; private set; }
         public Cart Cart { get; private set; }
         public List<Order> Orders { get; private set; }
 
         protected User() { }
 
-        public User(string name, Mail mail, Phone phoneNumber, DateTime birthDate, Address address, Document document, Phone? faxNumber = null)
+        public User(string name, Mail mail, Phone phoneNumber, DateTime birthDate, List<Address> addresses, Document document, Phone? faxNumber = null)
         {
             Name = name;
             Cart = new Cart(this);
@@ -27,7 +27,7 @@ namespace VandecoStore.Domain.Entities
             Phone = phoneNumber;
             Fax = faxNumber;
             BirthDate = birthDate;
-            Address = address;
+            Address = addresses;
             Document = document;
             Orders = [];
 
