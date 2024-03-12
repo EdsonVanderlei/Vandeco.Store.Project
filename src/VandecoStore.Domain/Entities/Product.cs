@@ -17,6 +17,7 @@ namespace VandecoStore.Domain.Entities
         public Brand Brand { get; private set; }
         public List<Comment> Comments { get; private set; } = [];
         public List<ProductOrder> ProductOrders { get; private set; } = [];
+        public List<CartItem> CartItems { get; private set; }
 
         public Product(string name, decimal price, int quantity, Category category, string description, Brand brand)
         {

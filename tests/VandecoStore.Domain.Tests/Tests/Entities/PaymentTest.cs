@@ -1,6 +1,6 @@
 ﻿using VandecoStore.Domain.Entities;
 
-namespace VandecoStore.Domain.Tests.Tests
+namespace VandecoStore.Domain.Tests.Tests.Entities
 {
     public class PaymentTest
     {
@@ -13,7 +13,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal("The Field Installments Must Be Greather Than 0", ex.Message);
         }
 
-        [Trait("Entity","Payment")]
+        [Trait("Entity", "Payment")]
         [Theory]
         [InlineData(5)]
         [InlineData(7)]

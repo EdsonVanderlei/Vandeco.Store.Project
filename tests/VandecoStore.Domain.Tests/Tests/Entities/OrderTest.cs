@@ -2,7 +2,7 @@
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Tests.Fixture;
 
-namespace VandecoStore.Domain.Tests.Tests
+namespace VandecoStore.Domain.Tests.Tests.Entities
 {
     [Collection(nameof(DomainCollection))]
     public class OrderTest

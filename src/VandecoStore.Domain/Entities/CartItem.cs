@@ -5,8 +5,11 @@ namespace VandecoStore.Domain.Entities
 {
     public class CartItem : Entity
     {
-        public Product Product { get; private set; }
+        public Guid ProductId { get; set; }
         public int Quantity { get; private set; }
+
+        // EF RELATIONS
+        public Product Product { get; private set; }
 
         protected CartItem() { }
 

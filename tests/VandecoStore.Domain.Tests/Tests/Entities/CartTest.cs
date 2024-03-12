@@ -2,14 +2,15 @@
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Tests.Fixture;
 
-namespace VandecoStore.Domain.Tests.Tests
+namespace VandecoStore.Domain.Tests.Tests.Entities
 {
     [Collection(nameof(DomainCollection))]
     public class CartTest
     {
         private readonly DomainTestFixture _fixture;
 
-        public CartTest(DomainTestFixture fixture) {
+        public CartTest(DomainTestFixture fixture)
+        {
             _fixture = fixture;
         }
 
@@ -41,7 +42,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(quantity,10);
+            var product = _fixture.GenerateValidProduct(quantity, 10);
             cart.AddCartItem(product, quantity);
 
             //Act
@@ -58,7 +59,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(1,10);
+            var product = _fixture.GenerateValidProduct(1, 10);
             cart.AddCartItem(product, 3);
 
             //Act
@@ -74,7 +75,7 @@ namespace VandecoStore.Domain.Tests.Tests
         {
             //Arrange
             var cart = new Mock<Cart>().Object;
-            var product = _fixture.GenerateValidProduct(1,10);
+            var product = _fixture.GenerateValidProduct(1, 10);
             cart.AddCartItem(product, 3);
 
             //Act

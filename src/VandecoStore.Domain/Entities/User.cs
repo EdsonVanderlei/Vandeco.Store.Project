@@ -16,6 +16,7 @@ namespace VandecoStore.Domain.Entities
         public List<Address> Address { get; private set; }
         public Cart Cart { get; private set; }
         public List<Order> Orders { get; private set; }
+        public List<Comment> Comments { get; private set; }
 
         protected User() { }
 

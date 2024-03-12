@@ -1,11 +1,11 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
 
-namespace VandecoStore.Domain.Tests.Tests
+namespace VandecoStore.Domain.Tests.Tests.Entities
 {
     public class ProductOrderTest
     {
-        [Trait("Entity","ProductOrder")]
+        [Trait("Entity", "ProductOrder")]
         [Fact]
         public void ProductOrder_Validate_ThrowsException()
         {

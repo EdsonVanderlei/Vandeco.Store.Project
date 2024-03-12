@@ -1,12 +1,11 @@
 using Moq;
 using VandecoStore.Domain.Entities;
 
-namespace VandecoStore.Domain.Tests.Tests
+namespace VandecoStore.Domain.Tests.Tests.Entities
 {
     public class AddressTests
     {
-
-        public AddressTests(){}
+        public AddressTests() { }
 
         [Trait("Entity", "Address")]
         [Fact]
