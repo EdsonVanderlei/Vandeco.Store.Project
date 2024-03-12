@@ -5,6 +5,7 @@ namespace VandecoStore.Domain.Tests.Tests
 {
     public class CommentTest
     {
+        [Trait("Entity", "Comment")]
         [Fact]
         public void Comment_Validate_ThrowsException()
         {

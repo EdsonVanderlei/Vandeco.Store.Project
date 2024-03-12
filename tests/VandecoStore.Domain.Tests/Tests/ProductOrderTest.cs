@@ -5,6 +5,7 @@ namespace VandecoStore.Domain.Tests.Tests
 {
     public class ProductOrderTest
     {
+        [Trait("Entity","ProductOrder")]
         [Fact]
         public void ProductOrder_Validate_ThrowsException()
         {

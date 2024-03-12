@@ -4,6 +4,7 @@ namespace VandecoStore.Domain.Tests.Tests
 {
     public class BrandTest
     {
+        [Trait("Entity", "Brand")]
         [Fact]
         public void Brand_Validate_ThrowsException()
         {

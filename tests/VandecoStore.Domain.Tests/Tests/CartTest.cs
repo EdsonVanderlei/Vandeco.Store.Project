@@ -13,6 +13,7 @@ namespace VandecoStore.Domain.Tests.Tests
             _fixture = fixture;
         }
 
+        [Trait("Entity", "Cart")]
         [Theory]
         [InlineData(1)]
         [InlineData(5)]
@@ -31,6 +32,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(quantity, cart.CartItems.First().Quantity);
         }
 
+        [Trait("Entity", "Cart")]
         [Theory]
         [InlineData(1)]
         [InlineData(5)]
@@ -50,6 +52,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(quantity * 2, cart.CartItems.First().Quantity);
         }
 
+        [Trait("Entity", "Cart")]
         [Fact]
         public void Cart_RemoveCartItem_CartItemQuantityShouldBeDecreased()
         {
@@ -65,6 +68,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(2, cart.CartItems[0].Quantity);
         }
 
+        [Trait("Entity", "Cart")]
         [Fact]
         public void Cart_RemoveCartItem_CartItemShouldBeDeleted()
         {

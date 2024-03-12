@@ -4,6 +4,7 @@ namespace VandecoStore.Domain.Tests.Tests
 {
     public class MailTest
     {
+        [Trait("ValueObject", "Mail")]
         [Theory]
         [InlineData("pagare@")]
         [InlineData("edson@dad")]

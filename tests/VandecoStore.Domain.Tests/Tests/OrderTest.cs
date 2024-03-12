@@ -14,6 +14,7 @@ namespace VandecoStore.Domain.Tests.Tests
             _fixture = fixture;
         }
 
+        [Trait("Entity", "Order")]
         [Fact]
         public void Order_AddProductOrder_ProductShouldBeAddedAndTotalPriceUpdated()
         {
@@ -29,6 +30,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(100, order.TotalPrice);
         }
 
+        [Trait("Entity", "Order")]
         [Fact]
         public void Order_RemoveProductOrder_ProductShouldBeRemovedAndTotalPriceUpdated()
         {
@@ -45,6 +47,7 @@ namespace VandecoStore.Domain.Tests.Tests
             Assert.Equal(0, order.TotalPrice);
         }
 
+        [Trait("Entity", "Order")]
         [Fact]
         public void Order_ChangeAddress_AddressShouldBeUpdate()
         {
