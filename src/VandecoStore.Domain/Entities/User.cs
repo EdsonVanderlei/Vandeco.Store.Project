@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Core;
+using VandecoStore.Domain.DTOS;
 using VandecoStore.Domain.ObjectValues;
 using VandecoStore.Domain.Support;
 
@@ -19,7 +20,9 @@ namespace VandecoStore.Domain.Entities
         public List<Order> Orders { get; private set; }
         public List<Comment> Comments { get; private set; }
 
-        protected User() { }
+        protected User(UserRegisterDTO userRegisterDTO) {
+            
+        }
 
         public User(string name, Mail mail, Phone phoneNumber, DateTime birthDate, List<Address> addresses, Document document, Phone? faxNumber = null)
         {
