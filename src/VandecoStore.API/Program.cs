@@ -4,7 +4,6 @@ using VandecoStore.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.ConfigureWebApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

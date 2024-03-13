@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace VandecoStore.API.V1.Controllers
+namespace VandecoStore.API.Controllers
 {
     [ApiController]
-    [Route("api/v{version:Version}")]
+    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

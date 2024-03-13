@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/VandecoStore.API2/VandecoStore.API2.csproj", "src/VandecoStore.API2/"]
-RUN dotnet restore "./src/VandecoStore.API2/./VandecoStore.API2.csproj"
+COPY ["src/VandecoStore.API/VandecoStore.API.csproj", "src/VandecoStore.API/"]
+RUN dotnet restore "./src/VandecoStore.API/./VandecoStore.API.csproj"
 COPY . .
-WORKDIR "/src/src/VandecoStore.API2"
-RUN dotnet build "./VandecoStore.API2.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/VandecoStore.API"
+RUN dotnet build "./VandecoStore.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./VandecoStore.API2.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./VandecoStore.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "VandecoStore.API2.dll"]
+ENTRYPOINT ["dotnet", "VandecoStore.API.dll"]
