@@ -1,0 +1,6 @@
+@VandecoStore.API_HostAddress = http://localhost:5298
+
+GET {{VandecoStore.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
