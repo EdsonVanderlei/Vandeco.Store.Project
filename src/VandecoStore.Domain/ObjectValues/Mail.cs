@@ -2,7 +2,7 @@
 
 namespace VandecoStore.Domain.ObjectValues
 {
-    public class Mail
+    public struct Mail
     {
         public string Address { get; private set; }
 

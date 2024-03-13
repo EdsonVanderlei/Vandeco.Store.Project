@@ -2,7 +2,7 @@
 
 namespace VandecoStore.Domain.ObjectValues
 {
-    public class Phone
+    public struct Phone
     {
         public int AreaCode { get; private set; }
         public int CountryCode { get; private set; }
