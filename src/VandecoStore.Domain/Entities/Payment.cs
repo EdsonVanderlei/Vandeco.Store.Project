@@ -8,19 +8,31 @@ namespace VandecoStore.Domain.Entities
         public PaymentTypeEnum PaymentType { get; private set; }
         public int Installments { get; private set; }
         public int InstallmentsPayed { get; private set; }
+        public decimal Value { get; private set; }
 
         //EF Relations 
         public Order Order { get; private set; }
 
-        public Payment(PaymentTypeEnum paymentType, int installments)
+        public Payment(PaymentTypeEnum paymentType, int installments, decimal value)
         {
             PaymentType = paymentType;
             Installments = installments;
             InstallmentsPayed = 0;
             Validate();
+            Value = value;
         }
 
         protected Payment() { }
+
+        public decimal CalculateTotalPayed()
+        {
+            return (Value / Installments) * InstallmentsPayed;
+        }
+
+        public decimal CalculateValuePerInstallments()
+        {
+            return Value / Installments;
+        }
 
         public void PayInstallment(int quantity)
         {

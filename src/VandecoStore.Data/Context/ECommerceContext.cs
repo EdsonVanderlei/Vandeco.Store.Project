@@ -5,7 +5,8 @@ namespace VandecoStore.Data.Context
 {
     public class ECommerceContext : DbContext
     {
-        public ECommerceContext(DbContextOptions<ECommerceContext> options) : base(options) {
+        public ECommerceContext(DbContextOptions<ECommerceContext> options) : base(options)
+        {
             ChangeTracker.AutoDetectChangesEnabled = false;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
@@ -23,7 +24,8 @@ namespace VandecoStore.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            foreach(var model in modelBuilder.Model.GetEntityTypes().SelectMany(p => p.GetProperties().Where(p => p.ClrType == typeof(string)))) {
+            foreach (var model in modelBuilder.Model.GetEntityTypes().SelectMany(p => p.GetProperties().Where(p => p.ClrType == typeof(string))))
+            {
                 model.SetColumnType("varchar(100)");
             }
 
