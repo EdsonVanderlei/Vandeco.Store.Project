@@ -1,6 +1,6 @@
 ﻿using VandecoStore.Domain.Support;
 
-namespace VandecoStore.Domain.Entities
+namespace VandecoStore.Domain.ObjectValues
 {
     public class Mail
     {

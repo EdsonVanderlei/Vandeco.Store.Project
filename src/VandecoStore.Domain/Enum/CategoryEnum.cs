@@ -1,6 +1,6 @@
-﻿namespace VandecoStore.Domain.Entities
+﻿namespace VandecoStore.Domain.Enum
 {
-    public enum Category
+    public enum CategoryEnum
     {
         Computer = 0,
         Notebook = 1,

@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Core;
+using VandecoStore.Domain.Enum;
 using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
@@ -9,7 +10,7 @@ namespace VandecoStore.Domain.Entities
         public string Name { get; private set; }
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
-        public Category Category { get; private set; }
+        public CategoryEnum Category { get; private set; }
         public string Description { get; private set; }
         public int Rate { get; private set; }
 
@@ -19,7 +20,7 @@ namespace VandecoStore.Domain.Entities
         public List<ProductOrder> ProductOrders { get; private set; } = [];
         public List<CartItem> CartItems { get; private set; }
 
-        public Product(string name, decimal price, int quantity, Category category, string description, Brand brand)
+        public Product(string name, decimal price, int quantity, CategoryEnum category, string description, Brand brand)
         {
             Name = name;
             Price = price;

@@ -1,5 +1,7 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Enum;
+using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.Tests.Fixture
 {
@@ -26,7 +28,7 @@ namespace VandecoStore.Domain.Tests.Fixture
 
         public Product GenerateValidProduct(int quantity,decimal price)
         {
-            return new Product("Product", price, quantity, Category.Computer, "Description", new Brand("Marca 1", "Description"));
+            return new Product("Product", price, quantity, CategoryEnum.Computer, "Description", new Brand("Marca 1", "Description"));
         }
 
         public List<Address> GenerateValidAddress()

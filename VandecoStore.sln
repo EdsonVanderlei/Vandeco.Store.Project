@@ -16,8 +16,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VandecoStore.Domain.Tests", "tests\VandecoStore.Domain.Tests\VandecoStore.Domain.Tests.csproj", "{D7F085C2-EEDD-4295-856D-2399ACD6BB28}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VandecoStore.Data", "src\VandecoStore.Data\VandecoStore.Data.csproj", "{19D9F6AF-0820-4820-B04C-EDDE4A800A63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B68F1F32-2E30-4402-BE7D-17FEA4329684} = {B68F1F32-2E30-4402-BE7D-17FEA4329684}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VandecoStore.API", "src\VandecoStore.API\VandecoStore.API\VandecoStore.API.csproj", "{3223A617-0478-4DEE-B097-476E3C1BA55C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4A15748A-68D3-49FD-AF12-D65B1129EEF9} = {4A15748A-68D3-49FD-AF12-D65B1129EEF9}
+		{B68F1F32-2E30-4402-BE7D-17FEA4329684} = {B68F1F32-2E30-4402-BE7D-17FEA4329684}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

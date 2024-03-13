@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Core;
+using VandecoStore.Domain.ObjectValues;
 using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
@@ -65,10 +66,12 @@ namespace VandecoStore.Domain.Entities
         public Document(string documentNumber)
         {
             DocumentNumber = documentNumber;
+            Validate();
         }
 
-        private void Validar()
+        private void Validate()
         {
+            AssertionConcern.AssertArgumentNotEmpty(DocumentNumber, "The Field DocumentNumber Must Be Provided !");
         }
     }
 }

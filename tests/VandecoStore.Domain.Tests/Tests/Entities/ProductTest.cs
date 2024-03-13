@@ -1,5 +1,6 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Enum;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -13,15 +14,15 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var brand = new Mock<Brand>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, Category.Mouse, "description", brand));
+            var ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, CategoryEnum.Mouse, "description", brand));
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
 
             //Act && Assert
-            ex = Assert.Throws<InvalidOperationException>(() => new Product("name", 0, 0, Category.Mouse, "description", brand));
+            ex = Assert.Throws<InvalidOperationException>(() => new Product("name", 0, 0, CategoryEnum.Mouse, "description", brand));
             Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
 
             //Act && Assert
-            ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, Category.Mouse, string.Empty, brand));
+            ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, CategoryEnum.Mouse, string.Empty, brand));
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
         }
 

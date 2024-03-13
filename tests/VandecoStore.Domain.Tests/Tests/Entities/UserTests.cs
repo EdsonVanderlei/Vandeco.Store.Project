@@ -2,6 +2,7 @@
 using Moq.AutoMock;
 using System.Net;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.ObjectValues;
 using VandecoStore.Domain.Tests.Fixture;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities

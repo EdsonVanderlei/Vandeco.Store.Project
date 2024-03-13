@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {

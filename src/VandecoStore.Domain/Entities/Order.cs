@@ -1,10 +1,11 @@
 ﻿using VandecoStore.Core;
+using VandecoStore.Domain.Enum;
 
 namespace VandecoStore.Domain.Entities
 {
     public class Order : Entity
     {
-        public Guid AddressId {  get; private set; }
+        public Guid AddressId { get; private set; }
         public Guid PaymentId { get; private set; }
         public Guid UserId { get; private set; }
         public decimal TotalPrice { get; private set; }
@@ -12,6 +13,7 @@ namespace VandecoStore.Domain.Entities
         //EF Relations
         public List<ProductOrder> ProductOrders { get; private set; } = [];
         public Address Address { get; private set; }
+        public List<OrderStatus> OrdersStatus { get; private set; } = [];
         public User User { get; private set; }
         public Payment Payment { get; private set; }
 
@@ -23,6 +25,7 @@ namespace VandecoStore.Domain.Entities
             AddressId = address.Id;
             Payment = payment;
             PaymentId = payment.Id;
+            UpdateOrderStatus("System", StatusProcessEnum.Processing);
             CalculateTotalPrice();
         }
 
@@ -32,6 +35,11 @@ namespace VandecoStore.Domain.Entities
         {
             ProductOrders.Add(productOrder);
             CalculateTotalPrice();
+        }
+
+        public void UpdateOrderStatus(string notifier, StatusProcessEnum statusProcessEnum)
+        {
+            OrdersStatus.Add(new OrderStatus(notifier, this, statusProcessEnum));
         }
 
         public void ChangeAddress(Address address)

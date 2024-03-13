@@ -1,12 +1,12 @@
 ﻿using VandecoStore.Domain.Support;
 
-namespace VandecoStore.Domain.Entities
+namespace VandecoStore.Domain.ObjectValues
 {
     public class Phone
     {
         public int AreaCode { get; private set; }
         public int CountryCode { get; private set; }
-        public string PhoneNumber { get; private set;}
+        public string PhoneNumber { get; private set; }
 
         public Phone(int areaCode, int countryCode, string phoneNumber)
         {
