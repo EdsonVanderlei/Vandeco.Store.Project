@@ -1,5 +1,6 @@
 ﻿using VandecoStore.Core;
 using VandecoStore.Domain.Enum;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -46,8 +47,8 @@ namespace VandecoStore.Domain.Entities
             }
         }
         public required Brand Brand { get; init; }
-        public required List<Comment> Comments { get; init; };
-        public required List<ProductOrder> ProductOrders { get; init };
+        public required List<Comment> Comments { get; init; }
+        public required List<ProductOrder> ProductOrders { get; init; }
         public required List<CartItem> CartItems { get; init; }
 
         public Product() { }

@@ -1,6 +1,9 @@
 ﻿
 
-namespace VandecoStore.Core
+using VandecoStore.Core;
+using VandecoStore.Domain.Exceptions;
+
+namespace VandecoStore.Domain
 {
     public abstract class EntityValidation : Entity
     {

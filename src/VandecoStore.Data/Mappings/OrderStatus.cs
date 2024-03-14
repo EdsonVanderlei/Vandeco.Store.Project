@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VandecoStore.Domain.Entities;
+using VandecoStore.Data.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class OrderStatusMapping : IEntityTypeConfiguration<OrderStatus>
+    public class OrderStatusMapping : IEntityTypeConfiguration<OrderStatusDb>
     {
-        public void Configure(EntityTypeBuilder<OrderStatus> builder)
+        public void Configure(EntityTypeBuilder<OrderStatusDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Notifier).HasColumnType("varchar(100)").IsRequired();

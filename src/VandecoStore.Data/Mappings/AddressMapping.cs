@@ -19,7 +19,7 @@ namespace VandecoStore.Data.Mappings
             builder.Property(p => p.Complement).HasColumnType("varchar(100)").IsRequired();
 
             //Relations
-            builder.HasOne(p => p.User).WithMany(p => p.Address).HasForeignKey(p => p.UserId);
+            builder.HasOne(p => p.User).WithMany(p => p.Addresses).HasForeignKey(p => p.UserId);
         }
     }
 }

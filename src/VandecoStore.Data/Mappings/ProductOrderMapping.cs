@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VandecoStore.Domain.Entities;
+using VandecoStore.Data.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class ProductOrderMapping : IEntityTypeConfiguration<ProductOrder>
+    public class ProductOrderMapping : IEntityTypeConfiguration<ProductOrderDb>
     {
-        public void Configure(EntityTypeBuilder<ProductOrder> builder)
+        public void Configure(EntityTypeBuilder<ProductOrderDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Price)

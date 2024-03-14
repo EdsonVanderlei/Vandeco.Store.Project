@@ -5,7 +5,7 @@ namespace VandecoStore.Domain.Entities
     public class Cart : EntityValidation
     {
         public required User User { get; init; }
-        public required List<CartItemDb> CartItems { get; init; }
+        public required List<CartItem> CartItems { get; init; }
 
         public Cart() { }
 
@@ -15,7 +15,11 @@ namespace VandecoStore.Domain.Entities
             var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product));
             if (cartItemFound is null)
             {
-                CartItems.Add(new CartItemDb(product, quantity));
+                CartItems.Add(new CartItem
+                {
+                    Product = product,
+                    Quantity = quantity
+                });
                 return;
             }
             cartItemFound.AddQuantity(quantity);

@@ -8,7 +8,6 @@
 
         public Phone(string areaCode, string countryCode, string phoneNumber)
         {
-
             AreaCode = areaCode;
             CountryCode = countryCode;
             PhoneNumber = phoneNumber;
@@ -24,5 +23,7 @@
             var data = phone.Split(" ");
             return new Phone(data[0], data[1], data[2]);
         }
+
+        public Phone() { }
     }
 }

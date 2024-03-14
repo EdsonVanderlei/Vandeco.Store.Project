@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VandecoStore.Domain.Entities;
+using VandecoStore.Data.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class CommentMapping : IEntityTypeConfiguration<Comment>
+    public class CommentMapping : IEntityTypeConfiguration<CommentDb>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<CommentDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Title)

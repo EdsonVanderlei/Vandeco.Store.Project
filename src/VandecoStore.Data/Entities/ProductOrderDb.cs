@@ -3,20 +3,25 @@ using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Entities
 {
-    public class CartItemDb : Entity
+    public class ProductOrderDb : Entity
     {
         public required Guid ProductId { get; init; }
+        public required Guid OrderId { get; init; }
         public required int Quantity { get; init; }
+        public required decimal Price { get; init; }
 
-        // EF RELATIONS
+        //EF Relations 
+        public required OrderDb Order { get; init; }
         public required ProductDb Product { get; init; }
 
-        public CartItemDb() { }
+        public ProductOrderDb() { }
 
-        public CartItem ToCartItem()
+        public ProductOrder ToProductOrder()
         {
-            return new CartItem
+            return new ProductOrder
             {
+                Order = Order.ToOrder(),
+                Price = Price,
                 Product = Product.ToProduct(),
                 Quantity = Quantity,
                 Id = Id

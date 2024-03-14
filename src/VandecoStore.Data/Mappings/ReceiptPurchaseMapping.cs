@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VandecoStore.Domain.Tests.Tests.Entities;
+using VandecoStore.Data.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class ReceiptPurchaseMapping : IEntityTypeConfiguration<ReceiptPurchase>
+    public class ReceiptPurchaseMapping : IEntityTypeConfiguration<ReceiptPurchaseDb>
     {
-        public void Configure(EntityTypeBuilder<ReceiptPurchase> builder)
+        public void Configure(EntityTypeBuilder<ReceiptPurchaseDb> builder)
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Code)
@@ -17,10 +17,7 @@ namespace VandecoStore.Data.Mappings
                     .HasColumnType("varchar(100)")
                     .IsRequired();
 
-            builder.OwnsOne(p => p.IssuerDocument, pm =>
-            {
-                pm.Property(p => p.DocumentNumber).HasColumnType("varchar(20)").IsRequired();
-            });
+            builder.Property(p => p.IssuerDocument).HasColumnType("varchar(20)");
         }
     }
 }

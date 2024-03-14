@@ -34,14 +34,12 @@ namespace VandecoStore.Domain.Entities
             set => _Fax = value;
         }
         public required DateTime BirthDate { get; init; }
-
-        //EF Relations
-        public required List<Address> Address { get; init; }
+        public required List<Address> Addresses { get; init; }
         public required Cart Cart { get; init; }
         public required List<Order> Orders { get; init; }
         public required List<Comment> Comments { get; init; }
 
-        public User() { };
+        public User() { }
 
         public bool HasFaxPhone()
         {

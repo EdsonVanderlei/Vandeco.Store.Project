@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace VandecoStore.Core
+namespace VandecoStore.Domain.Exceptions
 {
     public class AssertionConcern
     {
@@ -8,7 +8,7 @@ namespace VandecoStore.Core
         {
             if (!object1.Equals(object2))
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -16,7 +16,7 @@ namespace VandecoStore.Core
         {
             if (boolValue)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -25,7 +25,7 @@ namespace VandecoStore.Core
             int length = stringValue.Trim().Length;
             if (length > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -34,17 +34,17 @@ namespace VandecoStore.Core
             int length = stringValue.Trim().Length;
             if (length < minimum || length > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
         public static void AssertArgumentMatches(string pattern, string stringValue, string message)
         {
-            Regex regex = new (pattern);
+            Regex regex = new(pattern);
 
             if (!regex.IsMatch(stringValue))
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -52,7 +52,7 @@ namespace VandecoStore.Core
         {
             if (stringValue == null || stringValue.Trim().Length == 0)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -60,7 +60,7 @@ namespace VandecoStore.Core
         {
             if (object1.Equals(object2))
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -68,7 +68,7 @@ namespace VandecoStore.Core
         {
             if (object1 == null)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -76,7 +76,7 @@ namespace VandecoStore.Core
         {
             if (value < minimum || value > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -84,7 +84,7 @@ namespace VandecoStore.Core
         {
             if (value < minimum || value > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -92,7 +92,7 @@ namespace VandecoStore.Core
         {
             if (value < minimum || value > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -100,7 +100,7 @@ namespace VandecoStore.Core
         {
             if (value < minimum || value > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -108,7 +108,7 @@ namespace VandecoStore.Core
         {
             if (value < minimum || value > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -116,7 +116,7 @@ namespace VandecoStore.Core
         {
             if (!boolValue)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -124,7 +124,7 @@ namespace VandecoStore.Core
         {
             if (boolValue)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -132,7 +132,7 @@ namespace VandecoStore.Core
         {
             if (!boolValue)
             {
-                throw new InvalidOperationException(message);
+                throw new DomainException(message);
             }
         }
 
@@ -142,77 +142,77 @@ namespace VandecoStore.Core
 
         protected void SelfAssertArgumentEquals(object object1, object object2, string message)
         {
-            AssertionConcern.AssertArgumentEquals(object1, object2, message);
+            AssertArgumentEquals(object1, object2, message);
         }
 
         protected void SelfAssertArgumentFalse(bool boolValue, string message)
         {
-            AssertionConcern.AssertArgumentFalse(boolValue, message);
+            AssertArgumentFalse(boolValue, message);
         }
 
         protected void SelfAssertArgumentLength(string stringValue, int maximum, string message)
         {
-            AssertionConcern.AssertArgumentLength(stringValue, maximum, message);
+            AssertArgumentLength(stringValue, maximum, message);
         }
 
         protected void SelfAssertArgumentLength(string stringValue, int minimum, int maximum, string message)
         {
-            AssertionConcern.AssertArgumentLength(stringValue, minimum, maximum, message);
+            AssertArgumentLength(stringValue, minimum, maximum, message);
         }
 
         protected void SelfAssertArgumentMatches(string pattern, string stringValue, string message)
         {
-            AssertionConcern.AssertArgumentMatches(pattern, stringValue, message);
+            AssertArgumentMatches(pattern, stringValue, message);
         }
 
         protected void SelfAssertArgumentNotEmpty(string stringValue, string message)
         {
-            AssertionConcern.AssertArgumentNotEmpty(stringValue, message);
+            AssertArgumentNotEmpty(stringValue, message);
         }
 
         protected void SelfAssertArgumentNotEquals(object object1, object object2, string message)
         {
-            AssertionConcern.AssertArgumentNotEquals(object1, object2, message);
+            AssertArgumentNotEquals(object1, object2, message);
         }
 
         protected void SelfAssertArgumentNotNull(object object1, string message)
         {
-            AssertionConcern.AssertArgumentNotNull(object1, message);
+            AssertArgumentNotNull(object1, message);
         }
 
         protected void SelfAssertArgumentRange(double value, double minimum, double maximum, string message)
         {
-            AssertionConcern.AssertArgumentRange(value, minimum, maximum, message);
+            AssertArgumentRange(value, minimum, maximum, message);
         }
 
         protected void SelfAssertArgumentRange(float value, float minimum, float maximum, string message)
         {
-            AssertionConcern.AssertArgumentRange(value, minimum, maximum, message);
+            AssertArgumentRange(value, minimum, maximum, message);
         }
 
         protected void SelfAssertArgumentRange(int value, int minimum, int maximum, string message)
         {
-            AssertionConcern.AssertArgumentRange(value, minimum, maximum, message);
+            AssertArgumentRange(value, minimum, maximum, message);
         }
 
         protected void SelfAssertArgumentRange(long value, long minimum, long maximum, string message)
         {
-            AssertionConcern.AssertArgumentRange(value, minimum, maximum, message);
+            AssertArgumentRange(value, minimum, maximum, message);
         }
 
         protected void SelfAssertArgumentTrue(bool boolValue, string message)
         {
-            AssertionConcern.AssertArgumentTrue(boolValue, message);
+            AssertArgumentTrue(boolValue, message);
         }
 
         protected void SelfAssertStateFalse(bool boolValue, string message)
         {
-            AssertionConcern.AssertStateFalse(boolValue, message);
+            AssertStateFalse(boolValue, message);
         }
 
         protected void SelfAssertStateTrue(bool boolValue, string message)
         {
-            AssertionConcern.AssertStateTrue(boolValue, message);
+            AssertStateTrue(boolValue, message);
         }
     }
 }

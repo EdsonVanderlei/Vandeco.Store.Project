@@ -24,9 +24,7 @@ namespace VandecoStore.Domain.Entities
                 _description = value;
             }
         }
-
-        //EF Relation 
-        public  List<Product> Products { get; private set; }
+        public List<Product> Products { get; init; } = [];
 
         public Brand() { }
     }

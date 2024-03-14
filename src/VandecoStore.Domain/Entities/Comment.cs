@@ -12,7 +12,7 @@ namespace VandecoStore.Domain.Entities
             {
                 FailIfNullOrEmpty(value, nameof(value));
                 _title = value;
-            };
+            }
         }
         private string _text;
         public required string Text

@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Core;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Entities
 {

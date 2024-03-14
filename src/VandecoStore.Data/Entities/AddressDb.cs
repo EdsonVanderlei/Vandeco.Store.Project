@@ -3,7 +3,7 @@ using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Entities
 {
-    public class AddressDb : EntityValidation
+    public class AddressDb : Entity
     {
         public required Guid UserId { get; init; }
         public required string Street { get; init; }
@@ -15,7 +15,7 @@ namespace VandecoStore.Data.Entities
         public required string Number { get; init; }
         public required string Complement { get; init; }
         //EF Relations 
-        public required List<Order> Orders { get; init; }
+        public required List<OrderDb> Orders { get; init; }
         public required UserDb User { get; init; }
         public AddressDb() { }
 

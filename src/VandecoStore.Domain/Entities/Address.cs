@@ -89,10 +89,5 @@ namespace VandecoStore.Domain.Entities
         public List<Order> Orders { get; init; }
 
         public User User { get; init; }
-
-        public Address ToAddressDb()
-        {
-            
-        }
     }
 }

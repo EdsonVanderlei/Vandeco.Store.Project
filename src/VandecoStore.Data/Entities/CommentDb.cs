@@ -7,8 +7,8 @@ namespace VandecoStore.Data.Entities
     {
         public required Guid UserId { get; init; }
         public required Guid ProductId { get; init; }
-        public string Title { get; init; }
-        public string Text { get; init; }
+        public required string Title { get; init; }
+        public required string Text { get; init; }
 
         //EF Relation 
         public required ProductDb Product { get; init; }
@@ -18,7 +18,14 @@ namespace VandecoStore.Data.Entities
 
         public Comment ToComment()
         {
-
+            return new Comment
+            {
+                Id = Id,
+                Product = Product.ToProduct(),
+                Text = Text,
+                Title = Title,
+                User = User.ToUser(),
+            };
         }
     }
 }

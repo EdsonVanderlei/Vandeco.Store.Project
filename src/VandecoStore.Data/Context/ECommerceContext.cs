@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VandecoStore.Data.Entities;
-using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Context
 {
@@ -13,14 +12,14 @@ namespace VandecoStore.Data.Context
         }
 
         public DbSet<AddressDb> Addresses { get; set; }
-        public DbSet<Brand> Brands { get; set; }
+        public DbSet<BrandDb> Brands { get; set; }
         public DbSet<CartDb> Carts { get; set; }
         public DbSet<CartItemDb> CartItems { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductOrder> ProductOrders { get; set; }
+        public DbSet<CommentDb> Comments { get; set; }
+        public DbSet<OrderDb> Orders { get; set; }
+        public DbSet<PaymentDb> Payments { get; set; }
+        public DbSet<ProductDb> Products { get; set; }
+        public DbSet<ProductOrderDb> ProductOrders { get; set; }
         public DbSet<UserDb> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

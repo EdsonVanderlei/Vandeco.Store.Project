@@ -1,8 +1,7 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.ObjectValues;
 
-namespace VandecoStore.Domain.Tests.Tests.Entities
+namespace VandecoStore.Domain.Entities
 {
     public class ReceiptPurchase : EntityValidation
     {
