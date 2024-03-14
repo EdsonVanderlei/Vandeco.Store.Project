@@ -1,4 +1,6 @@
-﻿using VandecoStore.Domain.Entities;
+﻿using Moq;
+using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -9,7 +11,12 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_Validate_ThrowsException()
         {
             //Arrange && Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new Payment(PaymentTypeEnum.Pix, 0, 300.00m));
+            var ex = Assert.Throws<InvalidOperationException>(() => new Payment
+            {
+                Installments = 0,
+                Order = new Mock<Order>().Object,
+                PaymentType = PaymentTypeEnum.DebitCard
+            });
             Assert.Equal("The Field Installments Must Be Greather Than 0", ex.Message);
         }
 
@@ -21,7 +28,12 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_PayInstallment_InstallmentShouldBePay(int installmentPayed)
         {
             //Arrange
-            var payment = new Payment(PaymentTypeEnum.Pix, 10, 200.00m);
+            var payment = new Payment
+            {
+                Installments = installmentPayed,
+                Order = new Mock<Order>().Object,
+                PaymentType = PaymentTypeEnum.DebitCard
+            };
 
             //Act
             payment.PayInstallment(installmentPayed);
@@ -41,7 +53,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var payment = new Payment(PaymentTypeEnum.Pix, 10, 200.00m);
 
             //Act
-            var ex = Assert.Throws<InvalidOperationException>(() => payment.PayInstallment(installmentPayed));
+            var ex = Assert.Throws<DomainException>(() => payment.PayInstallment(installmentPayed));
 
             //Assert
             Assert.Equal("Installments is less than InstallmentsPayed !", ex.Message);
@@ -55,7 +67,13 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_CalculateTotalPayed_TheValueOfInstallmentsPayedShouldBeCalculate(decimal value, int installmentsPayed)
         {
             //Arrange
-            var payment = new Payment(PaymentTypeEnum.Pix, 10, value);
+            var payment = new Payment
+            {
+                Value = value,
+                Installments = installmentsPayed,
+                Order = new Mock<Order>().Object,
+                PaymentType = PaymentTypeEnum.Pix
+            };
             payment.PayInstallment(installmentsPayed);
 
             //Act && Assert

@@ -1,6 +1,7 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Enum;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -14,16 +15,32 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var brand = new Mock<Brand>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, CategoryEnum.Mouse, "description", brand));
+            var ex = Assert.Throws<DomainException>(() => new Product
+            {
+                Name = string.Empty,
+                Brand = brand,
+                CartItems = [],
+                Category = CategoryEnum.Notebook,
+                Comments = [],
+                Price = 1,
+                ProductOrders = [],
+                Quantity = 1,
+            });
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
 
             //Act && Assert
-            ex = Assert.Throws<InvalidOperationException>(() => new Product("name", 0, 0, CategoryEnum.Mouse, "description", brand));
+            ex = Assert.Throws<DomainException>(() => new Product
+            {
+                Name = "Ola",
+                Brand = brand,
+                CartItems = [],
+                Category = CategoryEnum.Notebook,
+                Comments = [],
+                Price = 0,
+                ProductOrders = [],
+                Quantity = 1,
+            });
             Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
-
-            //Act && Assert
-            ex = Assert.Throws<InvalidOperationException>(() => new Product(string.Empty, 1, 0, CategoryEnum.Mouse, string.Empty, brand));
-            Assert.Equal("The Field Name Must Be Provided !", ex.Message);
         }
 
         [Trait("Entity", "Product")]

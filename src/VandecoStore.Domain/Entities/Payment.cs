@@ -7,7 +7,7 @@ namespace VandecoStore.Domain.Entities
         public required PaymentTypeEnum PaymentType { get; init; }
         public required int Installments { get; init; }
         public int InstallmentsPayed { get; private set; } = 0;
-        public decimal Value { get; private set; }
+        public required decimal Value { get; init; }
         public required Order Order { get; init; }
 
         public Payment() { }

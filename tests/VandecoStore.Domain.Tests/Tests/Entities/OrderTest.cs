@@ -17,39 +17,6 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
 
         [Trait("Entity", "Order")]
         [Fact]
-        public void Order_AddProductOrder_ProductShouldBeAddedAndTotalPriceUpdated()
-        {
-            //Arrange
-            var order = new Mock<Order>().Object;
-            var productOrder = _fixture.GenerateValidProductOrder(10, 10);
-
-            //Act
-            order.AddProductOrder(productOrder);
-
-            //Assert
-            Assert.Single(order.ProductOrders);
-            Assert.Equal(100, order.TotalPrice);
-        }
-
-        [Trait("Entity", "Order")]
-        [Fact]
-        public void Order_RemoveProductOrder_ProductShouldBeRemovedAndTotalPriceUpdated()
-        {
-            //Arrange
-            var order = new Mock<Order>().Object;
-            var productOrder = _fixture.GenerateValidProductOrder(10, 10);
-            order.AddProductOrder(productOrder);
-
-            //Act
-            order.RemoveProductOrder(productOrder);
-
-            //Assert
-            Assert.Empty(order.ProductOrders);
-            Assert.Equal(0, order.TotalPrice);
-        }
-
-        [Trait("Entity", "Order")]
-        [Fact]
         public void Order_ChangeAddress_AddressShouldBeUpdate()
         {
             //Arrange

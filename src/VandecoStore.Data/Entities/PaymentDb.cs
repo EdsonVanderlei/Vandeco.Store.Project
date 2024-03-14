@@ -19,6 +19,7 @@ namespace VandecoStore.Data.Entities
         {
             return new Payment
             {
+                Value = Value,
                 Installments = Installments,
                 Order = Order.ToOrder(),
                 PaymentType = PaymentType,

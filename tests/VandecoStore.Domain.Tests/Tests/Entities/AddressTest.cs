@@ -1,5 +1,6 @@
 using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -11,39 +12,127 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         [Fact]
         public void Address_Validate_ThrowsException()
         {
-            //Arrange 
+            // Arrange 
             var user = new Mock<User>().Object;
 
             // Act & Assert for Street
-            var ex = Assert.Throws<InvalidOperationException>(() => new Address(string.Empty, "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            var ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                Number = "10A",
+                User = user,
+                State = "New York",
+                Street = string.Empty,
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field Street Must be provided!", ex.Message);
 
             // Act & Assert for ZipCode
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", string.Empty, "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                Number = "10A",
+                User = user,
+                State = "New York",
+                Street = "Rua Nova York",
+                ZipCode = string.Empty,
+            });
             Assert.Equal("The Field ZipCode Must be provided!", ex.Message);
 
             // Act & Assert for NeighboardHood
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", string.Empty, "Metropolis", "United States", "NY", "10A", "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = "United States",
+                NeighboardHood = string.Empty,
+                Number = "10A",
+                State = "New York",
+                User = user,
+                Street = "Rua Nova York",
+                ZipCode = "0293123",
+            });
             Assert.Equal("The Field NeighboardHood Must be provided!", ex.Message);
 
             // Act & Assert for City
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", string.Empty, "United States", "NY", "10A", "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = string.Empty,
+                Complement = "Near the park",
+                Country = "United States",
+                User = user,
+                NeighboardHood = "DownTown",
+                Number = "10A",
+                State = "New York",
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field City Must be provided!", ex.Message);
 
             // Act & Assert for Country
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", string.Empty, "NY", "10A", "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = string.Empty,
+                NeighboardHood = "DownTown",
+                User = user,
+                Number = "10A",
+                State = "New York",
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field Country Must be provided!", ex.Message);
 
             // Act & Assert for State
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", string.Empty, "10A", "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                User = user,
+                Number = "10A",
+                State = string.Empty,
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field State Must be provided!", ex.Message);
 
             // Act & Assert for Number
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", string.Empty, "Near the park", user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = "Near the park",
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                Number = string.Empty,
+                State = "New York",
+                User = user,
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field Number Must be provided!", ex.Message);
 
             // Act & Assert for Complement
-            ex = Assert.Throws<InvalidOperationException>(() => new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", string.Empty, user));
+            ex = Assert.Throws<DomainException>(() => new Address
+            {
+                City = "123456",
+                Complement = string.Empty,
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                User = user,
+                Number = "10A",
+                State = "New York",
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            });
             Assert.Equal("The Field Complement Must be provided!", ex.Message);
         }
 
@@ -51,23 +140,34 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         [Fact]
         public void Address_UpdateAddress_AddressMustBeUpdated()
         {
-            //Arrange 
+            // Arrange 
             var user = new Mock<User>().Object;
-            var address1 = new Mock<Address>().Object;
-            var address = new Address("123 Main St", "12345", "Downtown", "Metropolis", "United States", "NY", "10A", "Near the park", user);
+            var address1 = new Address
+            {
+                User = user,
+                City = "123456",
+                Complement = "Complement",
+                Country = "United States",
+                NeighboardHood = "DownTown",
+                Number = "10A",
+                State = "New York",
+                Street = "Rua Nova York",
+                ZipCode = "031203",
+            };
+            var address = new Mock<Address>().Object;
 
-            //Act
+            // Act
             address.UpdateAddress(address1);
 
-            //Assert
-            Assert.Equal(address.City, address1.City);
-            Assert.Equal(address.Street, address1.Street);
-            Assert.Equal(address.ZipCode, address1.ZipCode);
-            Assert.Equal(address.Country, address1.Country);
-            Assert.Equal(address.State, address1.State);
-            Assert.Equal(address.NeighboardHood, address1.NeighboardHood);
-            Assert.Equal(address.Number, address1.Number);
-            Assert.Equal(address.Complement, address.Number);
+            // Assert
+            Assert.Equal(address1.City, address.City);
+            Assert.Equal(address1.Street, address.Street);
+            Assert.Equal(address1.ZipCode, address.ZipCode);
+            Assert.Equal(address1.Country, address.Country);
+            Assert.Equal(address1.State, address.State);
+            Assert.Equal(address1.NeighboardHood, address.NeighboardHood);
+            Assert.Equal(address1.Number, address.Number);
+            Assert.Equal(address1.Complement, address.Complement);
         }
     }
 }
