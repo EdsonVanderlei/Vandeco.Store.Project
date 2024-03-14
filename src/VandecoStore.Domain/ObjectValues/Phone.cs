@@ -1,31 +1,28 @@
-﻿using VandecoStore.Domain.Support;
-
-namespace VandecoStore.Domain.ObjectValues
+﻿namespace VandecoStore.Domain.ObjectValues
 {
-    public struct Phone
+    public readonly struct Phone
     {
-        public int AreaCode { get; private set; }
-        public int CountryCode { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public string AreaCode { get; }
+        public string CountryCode { get; }
+        public string PhoneNumber { get; }
 
-        public Phone(int areaCode, int countryCode, string phoneNumber)
+        public Phone(string areaCode, string countryCode, string phoneNumber)
         {
+
             AreaCode = areaCode;
             CountryCode = countryCode;
             PhoneNumber = phoneNumber;
-            Validate();
         }
 
-        public void UpdatePhone(Phone phone)
+        public static implicit operator string(Phone phone)
         {
-            AreaCode = phone.AreaCode;
-            CountryCode = phone.CountryCode;
-            PhoneNumber = phone.PhoneNumber;
+            return $"+{phone.CountryCode} {phone.AreaCode} {phone.PhoneNumber}";
         }
 
-        private void Validate()
+        public static implicit operator Phone(string phone)
         {
-            AssertionConcern.AssertArgumentNotEmpty(PhoneNumber, "The Field PhoneNumber Must be Provided !");
+            var data = phone.Split(" ");
+            return new Phone(data[0], data[1], data[2]);
         }
     }
 }

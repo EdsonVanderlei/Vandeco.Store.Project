@@ -4,9 +4,9 @@ using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class UserMapping : IEntityTypeConfiguration<User>
+    public class UserMapping : IEntityTypeConfiguration<UserDb>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<UserDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Name).HasColumnType("varchar(100)").IsRequired();

@@ -1,36 +1,33 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Comment : Entity
+    public class Comment : EntityValidation
     {
-        public Guid UserId { get; private set; }
-        public Guid ProductId { get; private set; }
-        public string Title { get; private set; }
-        public string Text { get; private set; }
-
-        //EF Relation 
-        public Product Product { get; private set; }
-        public User User { get; private set; }
-
-        public Comment(string title, string text, Product product, User user)
+        private string _title;
+        public required string Title
         {
-            Title = title;
-            Text = text;
-            Product = product;
-            User = user;
-            ProductId = product.Id;
-            UserId = user.Id;
-            Validate();
+            get => _title;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _title = value;
+            };
+        }
+        private string _text;
+        public required string Text
+        {
+            get => _text;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _text = value;
+            }
         }
 
-        protected Comment() { }
+        public required Product Product { get; init; }
+        public required User User { get; init; }
 
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentNotEmpty(Title, "The Field Title Must Be Provided!");
-            AssertionConcern.AssertArgumentNotEmpty(Text, "The Field Text Must Be Provided!");
-        }
+        public Comment() { }
     }
 }

@@ -1,50 +1,67 @@
 ﻿using VandecoStore.Core;
 using VandecoStore.Domain.Enum;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Product : Entity
+    public class Product : EntityValidation
     {
-        public Guid BrandId { get; private set; }
-        public string Name { get; private set; }
-        public decimal Price { get; private set; }
-        public int Quantity { get; private set; }
-        public CategoryEnum Category { get; private set; }
-        public string Description { get; private set; }
-        public int Rate { get; private set; }
-
-        //EF relation
-        public Brand Brand { get; private set; }
-        public List<Comment> Comments { get; private set; } = [];
-        public List<ProductOrder> ProductOrders { get; private set; } = [];
-        public List<CartItem> CartItems { get; private set; }
-
-        public Product(string name, decimal price, int quantity, CategoryEnum category, string description, Brand brand)
+        private string _name;
+        public required string Name
         {
-            Name = name;
-            Price = price;
-            Quantity = quantity;
-            Category = category;
-            Description = description;
-            Rate = 0;
-            Brand = brand;
-            BrandId = brand.Id;
-            Validate();
+            get => _name;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _name = value;
+            }
         }
 
-        protected Product() { }
+        private decimal _price;
+        public required decimal Price
+        {
+            get => _price;
+            init
+            {
+                FailIfLessThan(value, 0.01m, nameof(value));
+                _price = value;
+            }
+        }
+        private int _quantity;
+        public required int Quantity
+        {
+            get => _quantity;
+            init
+            {
+                _quantity = value;
+            }
+        }
+        public required CategoryEnum Category { get; init; }
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            init
+            {
+                _description = value;
+            }
+        }
+        public required Brand Brand { get; init; }
+        public required List<Comment> Comments { get; init; };
+        public required List<ProductOrder> ProductOrders { get; init };
+        public required List<CartItem> CartItems { get; init; }
+
+        public Product() { }
 
         public void UpdatePrice(decimal price)
         {
-            AssertionConcern.AssertArgumentRange(price, 0.01m, decimal.MaxValue, "The Field Price Must Be Greather Than 0 !");
-            Price = price;
+            FailIfLessThan(price, 0.01m, nameof(Price));
+            _price = price;
         }
 
         public void RemoveComment(Comment comment)
         {
-           var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new InvalidOperationException("Comment Not Found !");
-           Comments.Remove(comment);
+            var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new InvalidOperationException("Comment Not Found !");
+            Comments.Remove(comment);
         }
 
         private bool ValidateQuantity(int quantity)
@@ -59,27 +76,20 @@ namespace VandecoStore.Domain.Entities
 
         public void AddQuantity(int quantity)
         {
-            Quantity += Math.Abs(quantity); 
+            _quantity += Math.Abs(quantity);
         }
 
         public void RemoveQuantity(int quantity)
         {
             AssertionConcern.AssertStateFalse(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity");
 
-            Quantity -= Math.Abs(quantity);
+            _quantity -= Math.Abs(quantity);
         }
 
         public void ChangeDescription(string description)
         {
-            AssertionConcern.AssertArgumentNotEmpty(description, "The Field Description Must Be Provided !");
-            Description = description;
-        }
-
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
-            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Description Must Be Provided !");
-            AssertionConcern.AssertArgumentRange(Price,0.01m,decimal.MaxValue, "The Field Price Must Be Greather Than 0 !");
+            FailIfNullOrEmpty(description, nameof(description));
+            _description = description;
         }
     }
 }

@@ -2,27 +2,20 @@
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Cart : Entity
+    public class Cart : EntityValidation
     {
-        public Guid UserId { get; private set; }
-        public User User { get; private set; }
-        public List<CartItem> CartItems { get; private set; } = [];
+        public required User User { get; init; }
+        public required List<CartItemDb> CartItems { get; init; }
 
-        public Cart(User user)
-        {
-            UserId = user.Id;
-            User = user;
-        }
-
-        protected Cart() { }
+        public Cart() { }
 
         public void AddCartItem(Product product, int quantity)
         {
 
             var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product));
-            if(cartItemFound is null)
+            if (cartItemFound is null)
             {
-                CartItems.Add(new CartItem(product,quantity));
+                CartItems.Add(new CartItemDb(product, quantity));
                 return;
             }
             cartItemFound.AddQuantity(quantity);
@@ -32,7 +25,7 @@ namespace VandecoStore.Domain.Entities
         {
             var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product)) ?? throw new InvalidOperationException("Item Not Found In Cart");
             cartItemFound.RemoveQuantity(quantity);
-            if(cartItemFound.Quantity == 0)
+            if (cartItemFound.Quantity == 0)
                 CartItems.Remove(cartItemFound);
         }
     }

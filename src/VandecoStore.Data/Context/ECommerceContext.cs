@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VandecoStore.Data.Entities;
 using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Context
@@ -11,16 +12,16 @@ namespace VandecoStore.Data.Context
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<AddressDb> Addresses { get; set; }
         public DbSet<Brand> Brands { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<CartDb> Carts { get; set; }
+        public DbSet<CartItemDb> CartItems { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDb> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VandecoStore.Domain.Entities;
+using VandecoStore.Data.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class AddressMapping : IEntityTypeConfiguration<Address>
+    public class AddressMapping : IEntityTypeConfiguration<AddressDb>
     {
-        public void Configure(EntityTypeBuilder<Address> builder)
+        public void Configure(EntityTypeBuilder<AddressDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(p => p.Street).HasColumnType("varchar(150)").IsRequired();

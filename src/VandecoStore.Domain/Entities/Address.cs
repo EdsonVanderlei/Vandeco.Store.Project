@@ -4,7 +4,6 @@ namespace VandecoStore.Domain.Entities
 {
     public class Address : EntityValidation
     {
-        public Guid UserId { get; private set }
         private string _street;
         public required string Street
         {
@@ -86,39 +85,14 @@ namespace VandecoStore.Domain.Entities
             }
         }
 
-        private readonly List<Order> _orders;
         //EF Relations 
-        public  List<Order> Orders
-        {
-            get => _orders;
-            init
-            {
-                _orders = [];
-            }
-        }
-        private User _user;
-        public User User
-        {
-            get => _user;
-            set
-            {
-                UserId = value.Id;
-                _user = value;
-            }
-        }
+        public List<Order> Orders { get; init; }
 
-        protected Address() { }
+        public User User { get; init; }
 
-        public void UpdateAddress(Address address)
+        public Address ToAddressDb()
         {
-            _street = address.Street;
-            _zipCode = address.ZipCode;
-            _neighboardHood = address.NeighboardHood;
-            _city = address.City;
-            _country = address.Country;
-            _state = address.State;
-            _number = address.Number;
-            _complement = address.Complement;
+            
         }
     }
 }

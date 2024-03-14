@@ -3,33 +3,23 @@ using VandecoStore.Domain.Enum;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Order : Entity
+    public class Order : EntityValidation
     {
-        public Guid AddressId { get; private set; }
-        public Guid PaymentId { get; private set; }
-        public Guid UserId { get; private set; }
-        public decimal TotalPrice { get; private set; }
-
         //EF Relations
-        public List<ProductOrder> ProductOrders { get; private set; } = [];
-        public Address Address { get; private set; }
-        public List<OrderStatus> OrdersStatus { get; private set; } = [];
-        public User User { get; private set; }
-        public Payment Payment { get; private set; }
-
-        public Order(User user, List<ProductOrder> productOrders, Payment payment, Address address)
-        {
-            ProductOrders.AddRange(productOrders);
-            User = user;
-            Address = address;
-            AddressId = address.Id;
-            Payment = payment;
-            PaymentId = payment.Id;
-            UpdateOrderStatus("System", StatusProcessEnum.Processing);
-            CalculateTotalPrice();
+        public required List<ProductOrder> ProductOrders { get; init; }
+        private Address _address;
+        public required Address Address {
+            get => _address; 
+            init
+            {
+                _address = value;
+            }
         }
+        public required List<OrderStatus> OrdersStatus { get; init; }
+        public required User User { get; init; }
+        public required Payment Payment { get; init; }
 
-        protected Order() { }
+        public Order() { }
 
         public void AddProductOrder(ProductOrder productOrder)
         {
@@ -39,12 +29,17 @@ namespace VandecoStore.Domain.Entities
 
         public void UpdateOrderStatus(string notifier, StatusProcessEnum statusProcessEnum)
         {
-            OrdersStatus.Add(new OrderStatus(notifier, this, statusProcessEnum));
+            OrdersStatus.Add(new OrderStatus
+            {
+                Notifier = notifier,
+                Order = this,
+                StatusProcessEnum = statusProcessEnum,
+            });
         }
 
         public void ChangeAddress(Address address)
         {
-            Address = address;
+            _address = address;
         }
 
         public void RemoveProductOrder(ProductOrder productOrder)
@@ -54,9 +49,9 @@ namespace VandecoStore.Domain.Entities
             CalculateTotalPrice();
         }
 
-        private void CalculateTotalPrice()
+        private decimal CalculateTotalPrice()
         {
-            TotalPrice = ProductOrders.Sum(p => p.Quantity * p.Price);
+            return ProductOrders.Sum(p => p.Quantity * p.Price);
         }
     }
 }

@@ -4,9 +4,9 @@ using VandecoStore.Domain.Entities;
 
 namespace VandecoStore.Data.Mappings
 {
-    public class CartItemMapping : IEntityTypeConfiguration<CartItem>
+    public class CartItemMapping : IEntityTypeConfiguration<CartItemDb>
     {
-        public void Configure(EntityTypeBuilder<CartItem> builder)
+        public void Configure(EntityTypeBuilder<CartItemDb> builder)
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(p => p.Product).WithMany(p => p.CartItems).HasForeignKey(p => p.ProductId);  

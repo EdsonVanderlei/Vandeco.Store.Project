@@ -1,11 +1,10 @@
 ﻿using VandecoStore.Core;
 using VandecoStore.Domain.ObjectValues;
 
-namespace VandecoStore.Domain.Entities
+namespace VandecoStore.Data.Entities
 {
-    public class User : EntityValidation
+    public class UserDb : EntityValidation
     {
-        private string _name;
         public required string Name
         {
             get => _name; init
@@ -14,6 +13,7 @@ namespace VandecoStore.Domain.Entities
                 _name = value;
             }
         }
+        private string _name { get; set; }
         public required Document Document { get; init; }
         public required Mail Mail { get; init; }
         public required Phone Phone
@@ -36,12 +36,12 @@ namespace VandecoStore.Domain.Entities
         public required DateTime BirthDate { get; init; }
 
         //EF Relations
-        public required List<Address> Address { get; init; }
+        public required List<AddressDb> Address { get; init; }
         public required Cart Cart { get; init; }
-        public required List<Order> Orders { get; init; }
-        public required List<Comment> Comments { get; init; }
+        public required List<OrderDb> Orders { get; init; }
+        public required List<CommentDb> Comments { get; init; }
 
-        public User() { };
+        public UserDb() { }
 
         public bool HasFaxPhone()
         {
@@ -56,6 +56,22 @@ namespace VandecoStore.Domain.Entities
         public void UpdateFaxPhone(Phone phone)
         {
             _Fax = phone;
+        }
+    }
+
+    public class Document
+    {
+        public string DocumentNumber { get; set; }
+
+        public Document(string documentNumber)
+        {
+            DocumentNumber = documentNumber;
+            Validate();
+        }
+
+        private void Validate()
+        {
+            AssertionConcern.AssertArgumentNotEmpty(DocumentNumber, "The Field DocumentNumber Must Be Provided !");
         }
     }
 }

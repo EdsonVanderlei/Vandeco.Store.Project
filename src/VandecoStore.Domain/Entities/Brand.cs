@@ -1,29 +1,33 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Brand : Entity
+    public class Brand : EntityValidation
     {
-        public string Name { get; private set; }
-        public string Description { get; private set; }
+        private string _name;
+        public required string Name
+        {
+            get => _name;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _name = value;
+            }
+        }
+        private string _description;
+        public required string Description
+        {
+            get => _description;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _description = value;
+            }
+        }
 
         //EF Relation 
-        public List<Product> Products { get; private set; } = [];
+        public  List<Product> Products { get; private set; }
 
-        public Brand(string name, string description)
-        {
-            Name = name;
-            Description = description;
-            Validate();
-        }
-
-        protected Brand() { }
-
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentNotEmpty(Name, "The Field Name Must Be Provided !");
-            AssertionConcern.AssertArgumentNotEmpty(Description, "The Field Description Must Be Provided !");
-        }
+        public Brand() { }
     }
 }

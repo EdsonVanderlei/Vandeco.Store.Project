@@ -1,45 +1,38 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class CartItem : Entity
+    public class CartItem : EntityValidation
     {
-        public Guid ProductId { get; set; }
-        public int Quantity { get; private set; }
-
-        // EF RELATIONS
-        public Product Product { get; private set; }
-
-        protected CartItem() { }
-
-        public CartItem(Product product, int quantity)
+        private int _quantity;
+        public required int Quantity
         {
-            Product = product;
-            Quantity = quantity;
-            Validate();
+            get => _quantity;
+            init
+            {
+                FailIfLessThan(value, 1, nameof(value));
+                _quantity = value;
+            }
         }
+        public required Product Product { get; init; }
+
+        public CartItem() { }
 
         public void AddQuantity(int quantity)
         {
-            Quantity += Math.Abs(quantity);
+            _quantity += Math.Abs(quantity);
         }
 
         public void RemoveQuantity(int quantity)
         {
             AssertionConcern.AssertArgumentTrue(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity !");
-            Quantity -= Math.Abs(quantity);
+            _quantity -= Math.Abs(quantity);
 
         }
 
         public bool ValidateQuantity(int quantity)
         {
             return Quantity - Math.Abs(quantity) >= 0;
-        }
-
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentTrue(Quantity > 0, "The Field Quantity Must Be Greather Than 0 !");
         }
     }
 }
