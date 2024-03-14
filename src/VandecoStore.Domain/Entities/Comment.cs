@@ -10,7 +10,7 @@ namespace VandecoStore.Domain.Entities
             get => _title;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Title));
                 _title = value;
             }
         }
@@ -20,7 +20,7 @@ namespace VandecoStore.Domain.Entities
             get => _text;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Text));
                 _text = value;
             }
         }

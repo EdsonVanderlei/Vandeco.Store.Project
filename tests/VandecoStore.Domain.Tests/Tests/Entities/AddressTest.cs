@@ -28,7 +28,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = string.Empty,
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field Street Must be provided!", ex.Message);
+            Assert.Equal("The Field Street Must Be Provided !", ex.Message);
 
             // Act & Assert for ZipCode
             ex = Assert.Throws<DomainException>(() => new Address
@@ -43,7 +43,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = string.Empty,
             });
-            Assert.Equal("The Field ZipCode Must be provided!", ex.Message);
+            Assert.Equal("The Field ZipCode Must Be Provided !", ex.Message);
 
             // Act & Assert for NeighboardHood
             ex = Assert.Throws<DomainException>(() => new Address
@@ -58,7 +58,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "0293123",
             });
-            Assert.Equal("The Field NeighboardHood Must be provided!", ex.Message);
+            Assert.Equal("The Field NeighboardHood Must Be Provided !", ex.Message);
 
             // Act & Assert for City
             ex = Assert.Throws<DomainException>(() => new Address
@@ -73,7 +73,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field City Must be provided!", ex.Message);
+            Assert.Equal("The Field City Must Be Provided !", ex.Message);
 
             // Act & Assert for Country
             ex = Assert.Throws<DomainException>(() => new Address
@@ -88,7 +88,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field Country Must be provided!", ex.Message);
+            Assert.Equal("The Field Country Must Be Provided !", ex.Message);
 
             // Act & Assert for State
             ex = Assert.Throws<DomainException>(() => new Address
@@ -103,7 +103,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field State Must be provided!", ex.Message);
+            Assert.Equal("The Field State Must Be Provided !", ex.Message);
 
             // Act & Assert for Number
             ex = Assert.Throws<DomainException>(() => new Address
@@ -118,7 +118,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field Number Must be provided!", ex.Message);
+            Assert.Equal("The Field Number Must Be Provided !", ex.Message);
 
             // Act & Assert for Complement
             ex = Assert.Throws<DomainException>(() => new Address
@@ -133,7 +133,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Street = "Rua Nova York",
                 ZipCode = "031203",
             });
-            Assert.Equal("The Field Complement Must be provided!", ex.Message);
+            Assert.Equal("The Field Complement Must Be Provided !", ex.Message);
         }
 
         [Trait("Entity", "Address")]

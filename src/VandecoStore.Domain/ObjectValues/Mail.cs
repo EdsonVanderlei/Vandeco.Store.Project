@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using VandecoStore.Domain.Exceptions;
 using VandecoStore.Domain.ObjectValues.Exceptions;
 
 namespace VandecoStore.Domain.ObjectValues
@@ -11,7 +12,7 @@ namespace VandecoStore.Domain.ObjectValues
             if (IsValidEmail(address) is false)
             {
                 InvalidEmailException.ThrowIfInvalidEmail(IsValidEmail(address), address);
-                throw new Exception();
+                throw new DomainException("");
             }
 
             Address = address;

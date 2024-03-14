@@ -10,7 +10,7 @@ namespace VandecoStore.Domain.Entities
             get => _street;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Street));
                 _street = value;
             }
         }
@@ -20,7 +20,7 @@ namespace VandecoStore.Domain.Entities
             get => _zipCode;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(ZipCode));
                 _zipCode = value;
             }
         }
@@ -30,7 +30,7 @@ namespace VandecoStore.Domain.Entities
             get => _neighboardHood;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(NeighboardHood));
                 _neighboardHood = value;
             }
         }
@@ -40,7 +40,7 @@ namespace VandecoStore.Domain.Entities
             get => _city;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(City));
                 _city = value;
             }
         }
@@ -50,7 +50,7 @@ namespace VandecoStore.Domain.Entities
             get => _country;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Country));
                 _country = value;
             }
         }
@@ -60,7 +60,7 @@ namespace VandecoStore.Domain.Entities
             get => _state;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(State));
                 _state = value;
             }
         }
@@ -70,7 +70,7 @@ namespace VandecoStore.Domain.Entities
             get => _number;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Number));
                 _number = value;
             }
         }
@@ -80,13 +80,13 @@ namespace VandecoStore.Domain.Entities
             get => _complement;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Complement));
                 _complement = value;
             }
         }
 
         //EF Relations 
-        public  List<Order> Orders { get; private set; }
+        public List<Order> Orders { get; private set; }
 
         public required User User { get; init; }
 
@@ -94,7 +94,7 @@ namespace VandecoStore.Domain.Entities
         {
             _city = address.City;
             _country = address.Country;
-            _state = address.State; 
+            _state = address.State;
             _number = address.Number;
             _complement = address.Complement;
             _zipCode = address.ZipCode;

@@ -11,8 +11,9 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_Validate_ThrowsException()
         {
             //Arrange && Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new Payment
+            var ex = Assert.Throws<DomainException>(() => new Payment
             {
+                Value = 100m,
                 Installments = 0,
                 Order = new Mock<Order>().Object,
                 PaymentType = PaymentTypeEnum.DebitCard
@@ -30,6 +31,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Arrange
             var payment = new Payment
             {
+                Value = 100m,
                 Installments = installmentPayed,
                 Order = new Mock<Order>().Object,
                 PaymentType = PaymentTypeEnum.DebitCard
@@ -50,7 +52,13 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_PayInstallment_ThrowsException(int installmentPayed)
         {
             //Arrange
-            var payment = new Payment(PaymentTypeEnum.Pix, 10, 200.00m);
+            var payment = new Payment
+            {
+                Value = 100m,
+                Installments = 10,
+                Order = new Mock<Order>().Object,
+                PaymentType = PaymentTypeEnum.DebitCard
+            };
 
             //Act
             var ex = Assert.Throws<DomainException>(() => payment.PayInstallment(installmentPayed));
@@ -89,7 +97,13 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Payment_CalculateValuePerInstallments_InstallmentsValueShouldBeReturn(decimal value, int installments)
         {
             //Arrange
-            var payment = new Payment(PaymentTypeEnum.Pix, installments, value);
+            var payment = new Payment
+            {
+                Value = 100m,
+                Installments = installments,
+                Order = new Mock<Order>().Object,
+                PaymentType = PaymentTypeEnum.Pix
+            };
 
             //Act && Assert
             Assert.Equal((value / installments), payment.CalculateValuePerInstallments());

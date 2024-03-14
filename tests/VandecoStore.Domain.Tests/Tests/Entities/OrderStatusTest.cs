@@ -1,5 +1,6 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -9,7 +10,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void OrderStatus_Validate_ThrowsException()
         {
             //Arrange, Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new OrderStatus
+            var ex = Assert.Throws<DomainException>(() => new OrderStatus
             {
                 Notifier = string.Empty,
                 Order = new Mock<Order>().Object,

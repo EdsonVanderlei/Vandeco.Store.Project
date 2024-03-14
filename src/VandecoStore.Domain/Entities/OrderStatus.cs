@@ -11,7 +11,7 @@ namespace VandecoStore.Domain.Entities
             get => _notifier;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Notifier));
                 _notifier = value;
             }
         }

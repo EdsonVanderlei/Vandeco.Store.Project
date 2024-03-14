@@ -1,5 +1,6 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -14,7 +15,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var order = new Mock<Order>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new ProductOrder { Order = order, Price = 0, Product = product, Quantity = 10 });
+            var ex = Assert.Throws<DomainException>(() => new ProductOrder { Order = order, Price = 0, Product = product, Quantity = 10 });
             Assert.Equal("Quantity Must Be Greather Than 0", ex.Message);
         }
     }

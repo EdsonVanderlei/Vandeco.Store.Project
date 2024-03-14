@@ -1,10 +1,8 @@
-﻿using VandecoStore.Core;
-
-namespace VandecoStore.Domain.Entities
+﻿namespace VandecoStore.Domain.Entities
 {
     public class Cart : EntityValidation
     {
-        public required User User { get; init; }
+        public User User { get; init; }
         public required List<CartItem> CartItems { get; init; }
 
         public Cart() { }

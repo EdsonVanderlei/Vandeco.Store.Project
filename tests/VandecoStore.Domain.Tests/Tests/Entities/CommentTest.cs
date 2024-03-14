@@ -1,5 +1,6 @@
 ﻿using Moq;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -14,10 +15,23 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var user = new Mock<User>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new Comment("Produto", string.Empty, product, user));
+            var ex = Assert.Throws<DomainException>(() =>
+            new Comment
+            {
+                Product = product,
+                Text = string.Empty,
+                Title = "Produto",
+                User = user
+            });
             Assert.Equal("The Field Text Must Be Provided!", ex.Message);
 
-            ex = Assert.Throws<InvalidOperationException>(() => new Comment(string.Empty, "Text", product, user));
+            ex = Assert.Throws<DomainException>(() => new Comment
+            {
+                Product = product,
+                Text = "Text Teste",
+                Title = string.Empty,
+                User = user
+            });
             Assert.Equal("The Field Title Must Be Provided!", ex.Message);
         }
     }

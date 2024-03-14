@@ -69,7 +69,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var product = new Mock<Product>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => product.UpdatePrice(0));
+            var ex = Assert.Throws<DomainException>(() => product.UpdatePrice(0));
             Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
         }
 
@@ -95,7 +95,13 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Arrange 
             var user = new Mock<User>().Object;
             var product = new Mock<Product>().Object;
-            var comment = new Comment("title", "text", product, user);
+            var comment = new Comment
+            {
+                Product = product,  
+                Text  = "Text",
+                Title = "Title",
+                User = user
+            };
             product.AddComment(comment);
 
             //Act
@@ -111,12 +117,24 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Arrange 
             var user = new Mock<User>().Object;
             var product = new Mock<Product>().Object;
-            var comment = new Comment("title", "text", product, user);
-            var commentToRemove = new Comment("title", "text", product, user);
+            var comment = new Comment
+            {
+                Product = product,
+                Text = "Text",
+                Title = "Title",
+                User = user
+            };
+            var commentToRemove = new Comment
+            {
+                Product = product,
+                Text = "Text Teste",
+                Title = "Title Teste",
+                User = user
+            };
             product.AddComment(comment);
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => product.RemoveComment(commentToRemove));
+            var ex = Assert.Throws<DomainException>(() => product.RemoveComment(commentToRemove));
             Assert.Equal("Comment Not Found !", ex.Message);
         }
 
@@ -143,7 +161,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             product.AddQuantity(2);
 
             //Act && Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => product.RemoveQuantity(3));
+            var ex = Assert.Throws<DomainException>(() => product.RemoveQuantity(3));
             Assert.Equal("The Quantity To Remove Is Greather Than Actual Quantity", ex.Message);
         }
 

@@ -2,6 +2,7 @@
 using Moq.AutoMock;
 using System.Net;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 using VandecoStore.Domain.ObjectValues;
 using VandecoStore.Domain.Tests.Fixture;
 
@@ -30,11 +31,33 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var document = _domainTestFixture.GenerateValidDocument();
 
             //Act & Assert
-            var ex = Assert.Throws<InvalidOperationException>(() => new User(string.Empty, mail, phone, new DateTime(), address, document));
+            var ex = Assert.Throws<DomainException>(() => new User
+            {
+                Addresses = [],
+                BirthDate = DateTime.Now,
+                Cart = new Mock<Cart>().Object,
+                Comments = [],
+                Document = document,
+                Mail = mail,
+                Name = string.Empty,
+                Orders = [],
+                Phone = phone,
+            });
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
 
             //Act & Assert
-            ex = Assert.Throws<InvalidOperationException>(() => new User("Nome", mail, null, new DateTime(), address, document));
+            ex = Assert.Throws<DomainException>(() => new User
+            {
+                Addresses = [],
+                BirthDate = DateTime.Now,
+                Cart = new Mock<Cart>().Object,
+                Comments = [],
+                Document = document,
+                Mail = mail,
+                Name = "Edson",
+                Orders = [],
+                Phone = string.Empty,
+            });
             Assert.Equal("The Field PhoneNumber Must Be Provided !", ex.Message);
         }
 
@@ -58,15 +81,28 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var phone = _domainTestFixture.GenerateValidPhone();
             var address = _domainTestFixture.GenerateValidAddress();
             var document = _domainTestFixture.GenerateValidDocument();
-            var user = new User("Nome", mail, phone, new DateTime(), address, document);
-            var phoneToUpdate = new Phone(22, 56, "999999999");
+
+            var user = new User
+            {
+                Addresses = [],
+                BirthDate = DateTime.Now,
+                Cart = new Mock<Cart>().Object,
+                Comments = [],
+                Document = document,
+                Mail = mail,
+                Name = phone,
+                Orders = [],
+                Phone = "11 99 993128321",
+            };
+
+            Phone phoneToUpdate = "56 22 999999999";
 
             //Act
             user.UpdatePrincipalPhone(phoneToUpdate);
 
             //Assert
-            Assert.Equal(22, user.Phone.AreaCode);
-            Assert.Equal(56, user.Phone.CountryCode);
+            Assert.Equal("22", user.Phone.AreaCode);
+            Assert.Equal("56", user.Phone.CountryCode);
             Assert.Equal("999999999", user.Phone.PhoneNumber);
         }
 
@@ -76,15 +112,15 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         {
             //Arrange
             var user = new Mock<User>().Object;
-            var phone = new Phone(22, 56, "999999999");
+            Phone phone = "56 22 999999999";
 
             //Act
             user.UpdateFaxPhone(phone);
 
             //Assert
-            Assert.Equal(22, user.Fax.AreaCode);
-            Assert.Equal(56, user.Fax.CountryCode);
-            Assert.Equal("999999999", user.Fax.PhoneNumber);
+            Assert.Equal("22", user.Fax?.AreaCode);
+            Assert.Equal("56", user.Fax?.CountryCode);
+            Assert.Equal("999999999", user.Fax?.PhoneNumber);
         }
     }
 }

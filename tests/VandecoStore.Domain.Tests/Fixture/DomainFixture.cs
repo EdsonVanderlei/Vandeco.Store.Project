@@ -17,7 +17,21 @@ namespace VandecoStore.Domain.Tests.Fixture
             var address = GenerateValidAddress();
             var document = GenerateValidDocument();
 
-            return new User("Nome", mail, phone, new DateTime(), address, document);
+            return new User
+            {
+                Addresses = address,
+                BirthDate = DateTime.Now,
+                Cart  = new Cart
+                {
+                    CartItems = [],
+                },
+                Comments = [],
+                Document = document,
+                Mail = mail,
+                Name = "Edson",
+                Orders = [],
+                Phone = phone,
+            };
         }
 
         public ProductOrder GenerateValidProductOrder(int quantity, decimal price)
@@ -36,6 +50,9 @@ namespace VandecoStore.Domain.Tests.Fixture
         {
             return new Product
             {
+                Name = "Produto tal",
+                ProductOrders = [],
+                Quantity = quantity,
                 Brand = new Mock<Brand>().Object,
                 Price = price,
                 CartItems = [],

@@ -11,7 +11,7 @@ namespace VandecoStore.Domain.Entities
             get => _quantity;
             init
             {
-                FailIfLessThan(value, 1, nameof(value));
+                FailIfLessThan(value, 1, nameof(Quantity));
                 _quantity = value;
             }
         }

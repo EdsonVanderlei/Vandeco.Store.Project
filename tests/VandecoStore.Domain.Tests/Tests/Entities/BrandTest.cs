@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -9,7 +10,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Brand_Validate_ThrowsException()
         {
             // Act & Assert for Number
-            var ex = Assert.Throws<InvalidOperationException>(() => new Brand
+            var ex = Assert.Throws<DomainException>(() => new Brand
             {
                 Description = "Descricao",
                 Name = string.Empty
@@ -18,7 +19,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
 
             // Act & Assert for Number
-            ex = Assert.Throws<InvalidOperationException>(() => new Brand
+            ex = Assert.Throws<DomainException>(() => new Brand
             {
                 Description = string.Empty,
                 Name = "Name",

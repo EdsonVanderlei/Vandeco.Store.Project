@@ -12,7 +12,7 @@ namespace VandecoStore.Domain.Entities
             get => _name;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Name));
                 _name = value;
             }
         }
@@ -23,7 +23,7 @@ namespace VandecoStore.Domain.Entities
             get => _price;
             init
             {
-                FailIfLessThan(value, 0.01m, nameof(value));
+                FailIfLessThan(value, 0.01m, nameof(Price));
                 _price = value;
             }
         }
@@ -33,6 +33,7 @@ namespace VandecoStore.Domain.Entities
             get => _quantity;
             init
             {
+                FailIfNullOrEmpty(value, nameof(Quantity));
                 _quantity = value;
             }
         }
@@ -43,6 +44,7 @@ namespace VandecoStore.Domain.Entities
             get => _description;
             init
             {
+                FailIfNullOrEmpty(value, nameof(Description));
                 _description = value;
             }
         }
@@ -61,7 +63,7 @@ namespace VandecoStore.Domain.Entities
 
         public void RemoveComment(Comment comment)
         {
-            var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new InvalidOperationException("Comment Not Found !");
+            var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new DomainException("Comment Not Found !");
             Comments.Remove(comment);
         }
 
