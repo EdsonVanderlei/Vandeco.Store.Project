@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace VandecoStore.Domain.Support
+namespace VandecoStore.Core
 {
     public class AssertionConcern
     {

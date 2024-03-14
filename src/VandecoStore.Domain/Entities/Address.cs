@@ -1,64 +1,124 @@
 ﻿using VandecoStore.Core;
-using VandecoStore.Domain.Support;
 
 namespace VandecoStore.Domain.Entities
 {
-    public class Address : Entity
+    public class Address : EntityValidation
     {
-        public Guid UserId { get; private set; }
-        public string Street { get; private set; }
-        public string ZipCode { get; private set; }
-        public string NeighboardHood { get; private set; }
-        public string City { get; private set; }
-        public string Country { get; private set; }
-        public string State { get; private set; }
-        public string Number { get; private set; }
-        public string Complement { get; private set; }
+        public Guid UserId { get; private set }
+        private string _street;
+        public required string Street
+        {
+            get => _street;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _street = value;
+            }
+        }
+        private string _zipCode;
+        public required string ZipCode
+        {
+            get => _zipCode;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _zipCode = value;
+            }
+        }
+        private string _neighboardHood;
+        public required string NeighboardHood
+        {
+            get => _neighboardHood;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _neighboardHood = value;
+            }
+        }
+        private string _city;
+        public required string City
+        {
+            get => _city;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _city = value;
+            }
+        }
+        private string _country;
+        public required string Country
+        {
+            get => _country;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _country = value;
+            }
+        }
+        private string _state;
+        public required string State
+        {
+            get => _state;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _state = value;
+            }
+        }
+        private string _number;
+        public required string Number
+        {
+            get => _number;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _number = value;
+            }
+        }
+        private string _complement;
+        public required string Complement
+        {
+            get => _complement;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(value));
+                _complement = value;
+            }
+        }
 
+        private readonly List<Order> _orders;
         //EF Relations 
-        public List<Order> Orders { get; private set; } = [];
-        public User User { get; private set; }
+        public  List<Order> Orders
+        {
+            get => _orders;
+            init
+            {
+                _orders = [];
+            }
+        }
+        private User _user;
+        public User User
+        {
+            get => _user;
+            set
+            {
+                UserId = value.Id;
+                _user = value;
+            }
+        }
 
         protected Address() { }
 
-        public Address(string street, string zipCode, string neighboardHood, string city, string country, string state, string number, string complement, User user)
-        {
-            User = user;
-            UserId = user.Id;
-            Street = street;
-            ZipCode = zipCode;
-            NeighboardHood = neighboardHood;
-            City = city;
-            Country = country;
-            State = state;
-            Number = number;
-            Complement = complement;
-
-            Validate();
-        }
-
         public void UpdateAddress(Address address)
         {
-            Street = address.Street;
-            ZipCode = address.ZipCode;
-            NeighboardHood = address.NeighboardHood;
-            City = address.City;
-            Country = address.Country;
-            State = address.State;
-            Number = address.Number;
-            Complement = address.Complement;
-        }
-
-        private void Validate()
-        {
-            AssertionConcern.AssertArgumentNotEmpty(Street, "The Field Street Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(ZipCode, "The Field ZipCode Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(NeighboardHood, "The Field NeighboardHood Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(City, "The Field City Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(Country, "The Field Country Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(State, "The Field State Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(Number, "The Field Number Must be provided!");
-            AssertionConcern.AssertArgumentNotEmpty(Complement, "The Field Complement Must be provided!");
+            _street = address.Street;
+            _zipCode = address.ZipCode;
+            _neighboardHood = address.NeighboardHood;
+            _city = address.City;
+            _country = address.Country;
+            _state = address.State;
+            _number = address.Number;
+            _complement = address.Complement;
         }
     }
 }
