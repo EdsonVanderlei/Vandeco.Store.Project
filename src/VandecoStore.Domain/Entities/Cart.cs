@@ -3,7 +3,7 @@
     public class Cart : EntityValidation
     {
         public User User { get; init; }
-        public required List<CartItem> CartItems { get; init; }
+        public required List<CartItem> CartItems { get; init; } = [];
 
         public Cart() { }
 

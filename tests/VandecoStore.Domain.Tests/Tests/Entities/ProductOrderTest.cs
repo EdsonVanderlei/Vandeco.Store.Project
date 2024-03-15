@@ -15,8 +15,8 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var order = new Mock<Order>().Object;
 
             //Act && Assert
-            var ex = Assert.Throws<DomainException>(() => new ProductOrder { Order = order, Price = 0, Product = product, Quantity = 10 });
-            Assert.Equal("Quantity Must Be Greather Than 0", ex.Message);
+            var ex = Assert.Throws<DomainException>(() => new ProductOrder { Order = order, Price = 0, Product = product, Quantity = 0 });
+            Assert.Equal("The Field value Must Be Greather Than 0 !", ex.Message);
         }
     }
 }

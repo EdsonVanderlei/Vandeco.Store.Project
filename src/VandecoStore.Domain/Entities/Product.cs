@@ -16,7 +16,6 @@ namespace VandecoStore.Domain.Entities
                 _name = value;
             }
         }
-
         private decimal _price;
         public required decimal Price
         {
@@ -33,7 +32,6 @@ namespace VandecoStore.Domain.Entities
             get => _quantity;
             init
             {
-                FailIfNullOrEmpty(value, nameof(Quantity));
                 _quantity = value;
             }
         }
@@ -49,7 +47,7 @@ namespace VandecoStore.Domain.Entities
             }
         }
         public required Brand Brand { get; init; }
-        public required List<Comment> Comments { get; init; }
+        public required List<Comment> Comments { get; init; } = [];
         public required List<ProductOrder> ProductOrders { get; init; }
         public required List<CartItem> CartItems { get; init; }
 

@@ -15,7 +15,7 @@ namespace VandecoStore.Domain.Entities
                 _address = value;
             }
         }
-        public required List<OrderStatus> OrdersStatus { get; init; }
+        public required List<OrderStatus> OrdersStatus { get; init; } = [];
         public required User User { get; init; }
         public required Payment Payment { get; init; }
 

@@ -1,5 +1,4 @@
-﻿using VandecoStore.Core;
-using VandecoStore.Domain.ObjectValues;
+﻿using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -10,7 +9,7 @@ namespace VandecoStore.Domain.Entities
         {
             get => _name; init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Name));
                 _name = value;
             }
         }
@@ -21,17 +20,20 @@ namespace VandecoStore.Domain.Entities
             get => _phone;
             init
             {
-                FailIfNull(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Phone));
                 _phone = value;
             }
-
         }
-        private Phone _phone { get; set; }
-        public Phone? Fax { get; init; }
-        private Phone _Fax
+        private Phone _phone;
+        private Phone? _fax;
+        public Phone? Fax
         {
-            get => _Fax;
-            set => _Fax = value;
+            get => _fax;
+            init
+            {
+                FailIfNullOrEmpty(value, nameof(Fax));
+                _fax = value;
+            }
         }
         public required DateTime BirthDate { get; init; }
         public required List<Address> Addresses { get; init; }
@@ -53,7 +55,7 @@ namespace VandecoStore.Domain.Entities
 
         public void UpdateFaxPhone(Phone phone)
         {
-            _Fax = phone;
+            _fax = phone;
         }
     }
 }

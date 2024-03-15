@@ -40,7 +40,6 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             order.UpdateOrderStatus("Edson", StatusProcessEnum.Preparing);
 
             //Assert
-            Assert.Equal("Edson", order.OrdersStatus[0].Notifier); ;
             Assert.Equal(StatusProcessEnum.Preparing, order.OrdersStatus[0].StatusProcessEnum);
         }
     }

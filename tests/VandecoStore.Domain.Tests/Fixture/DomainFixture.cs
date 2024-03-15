@@ -88,7 +88,7 @@ namespace VandecoStore.Domain.Tests.Fixture
 
         public Phone GenerateValidPhone()
         {
-            return new Phone("55", "11", "999932913");
+            return new Phone( "11", "999932913");
         }
 
         public void Dispose()

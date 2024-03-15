@@ -1,5 +1,4 @@
-﻿using VandecoStore.Core;
-using VandecoStore.Domain.ObjectValues;
+﻿using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -11,7 +10,7 @@ namespace VandecoStore.Domain.Entities
             get => _code;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(Code));
                 _code = value;
             }
         }
@@ -22,7 +21,7 @@ namespace VandecoStore.Domain.Entities
             get => _approvedBy;
             init
             {
-                FailIfNullOrEmpty(value, nameof(value));
+                FailIfNullOrEmpty(value, nameof(ApprovedBy));
             }
         }
         private decimal _value;
@@ -31,7 +30,7 @@ namespace VandecoStore.Domain.Entities
             get => _value;
             init
             {
-                FailIfLessThan(value, 0.01m, nameof(value));
+                FailIfLessThan(value, 0.01m, nameof(Value));
             }
         }
         public Document IssuerDocument { get; private set; }

@@ -23,7 +23,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Title = "Produto",
                 User = user
             });
-            Assert.Equal("The Field Text Must Be Provided!", ex.Message);
+            Assert.Equal("The Field Text Must Be Provided !", ex.Message);
 
             ex = Assert.Throws<DomainException>(() => new Comment
             {
@@ -32,7 +32,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Title = string.Empty,
                 User = user
             });
-            Assert.Equal("The Field Title Must Be Provided!", ex.Message);
+            Assert.Equal("The Field Title Must Be Provided !", ex.Message);
         }
     }
 }

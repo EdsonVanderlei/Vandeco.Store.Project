@@ -8,7 +8,7 @@ namespace VandecoStore.Domain
     public abstract class EntityValidation : Entity
     {
         private const string DEFAULT_ERROR_MESSAGE_NULL = "The Field {0} Must Be Provided !";
-        private const string DEFAULT_ERROR_MESSAGE_LESS = "The Field {0} Must Be Greather Than {1}";
+        private const string DEFAULT_ERROR_MESSAGE_LESS = "The Field {0} Must Be Greather Than {1} !";
 
         protected void FailIfNull(object? value, string propertyName)
         {
@@ -28,7 +28,12 @@ namespace VandecoStore.Domain
 
         protected void FailIfLessThan(decimal value, decimal minValue, string propertyName)
         {
-            AssertionConcern.AssertArgumentRange(value, minValue, decimal.MaxValue, string.Format(DEFAULT_ERROR_MESSAGE_LESS, propertyName, minValue));
+            AssertionConcern.AssertArgumentRange(value, minValue, decimal.MaxValue, string.Format(DEFAULT_ERROR_MESSAGE_LESS, propertyName, minValue - 0.01m));
+        }
+
+        protected void FailIfLessThan(int value, int minValue, string propertyName)
+        {
+            AssertionConcern.AssertArgumentRange(value, minValue, decimal.MaxValue, string.Format(DEFAULT_ERROR_MESSAGE_LESS, propertyName, minValue - 1));
         }
     }
 }

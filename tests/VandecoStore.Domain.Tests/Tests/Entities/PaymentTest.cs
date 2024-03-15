@@ -18,7 +18,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Order = new Mock<Order>().Object,
                 PaymentType = PaymentTypeEnum.DebitCard
             });
-            Assert.Equal("The Field Installments Must Be Greather Than 0", ex.Message);
+            Assert.Equal("The Field Installments Must Be Greather Than 0 !", ex.Message);
         }
 
         [Trait("Entity", "Payment")]
@@ -78,7 +78,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var payment = new Payment
             {
                 Value = value,
-                Installments = installmentsPayed,
+                Installments = 10,
                 Order = new Mock<Order>().Object,
                 PaymentType = PaymentTypeEnum.Pix
             };
@@ -99,7 +99,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Arrange
             var payment = new Payment
             {
-                Value = 100m,
+                Value = value,
                 Installments = installments,
                 Order = new Mock<Order>().Object,
                 PaymentType = PaymentTypeEnum.Pix

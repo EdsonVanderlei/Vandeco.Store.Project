@@ -23,6 +23,7 @@ namespace VandecoStore.Data.Entities
         {
             return new Address
             {
+                User = User.ToUser(),
                 City = City,
                 Complement = Complement,
                 State = State,

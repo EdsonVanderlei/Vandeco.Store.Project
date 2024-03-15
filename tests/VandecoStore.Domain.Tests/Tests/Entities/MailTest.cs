@@ -1,5 +1,5 @@
-﻿using VandecoStore.Domain.Exceptions;
-using VandecoStore.Domain.ObjectValues;
+﻿using VandecoStore.Domain.ObjectValues;
+using VandecoStore.Domain.ObjectValues.Exceptions;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
 {
@@ -13,8 +13,8 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         public void Mail_Validate_ThrowsException(string mailAddress)
         {
             //Arrange && Act && Assert
-            var ex = Assert.Throws<DomainException>(() => new Mail(mailAddress));
-            Assert.Equal("Mail Address Not Valid !", ex.Message);
+            var ex = Assert.Throws<InvalidEmailException>(() => new Mail(mailAddress));
+            Assert.Equal($"The Email Adress {mailAddress} is invalid", ex.Message);
         }
     }
 }

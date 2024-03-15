@@ -12,14 +12,6 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         {
             //Arrange 
             var document = new Document("documentNumber");
-            new ReceiptPurchase
-            {
-                Approved = true,
-                ApprovedBy = "Edson",
-                Code = string.Empty,
-                Order = new Mock<Order>().Object,
-                Value = 100m,
-            };
 
             var ex = Assert.Throws<DomainException>(() => new ReceiptPurchase
             {
@@ -52,7 +44,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Value = 0,
             }
            );
-            Assert.Equal("The Field Value Must Be Greather Than 0 !", ex.Message);
+            Assert.Equal("The Field Value Must Be Greather Than 0,00 !", ex.Message);
         }
     }
 }

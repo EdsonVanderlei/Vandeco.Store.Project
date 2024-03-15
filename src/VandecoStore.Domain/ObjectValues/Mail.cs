@@ -16,7 +16,6 @@ namespace VandecoStore.Domain.ObjectValues
             }
 
             Address = address;
-
         }
 
         public string Address { get; }

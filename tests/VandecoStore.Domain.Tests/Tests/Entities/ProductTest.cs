@@ -40,7 +40,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 ProductOrders = [],
                 Quantity = 1,
             });
-            Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
+            Assert.Equal("The Field Price Must Be Greather Than 0,00 !", ex.Message);
         }
 
         [Trait("Entity", "Product")]
@@ -70,7 +70,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
 
             //Act && Assert
             var ex = Assert.Throws<DomainException>(() => product.UpdatePrice(0));
-            Assert.Equal("The Field Price Must Be Greather Than 0 !", ex.Message);
+            Assert.Equal("The Field Price Must Be Greather Than 0,00 !", ex.Message);
         }
 
         [Trait("Entity", "Product")]

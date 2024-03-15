@@ -4,6 +4,7 @@ using System.Net;
 using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Exceptions;
 using VandecoStore.Domain.ObjectValues;
+using VandecoStore.Domain.ObjectValues.Exceptions;
 using VandecoStore.Domain.Tests.Fixture;
 
 namespace VandecoStore.Domain.Tests.Tests.Entities
@@ -46,7 +47,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
 
             //Act & Assert
-            ex = Assert.Throws<DomainException>(() => new User
+            var exPhone = Assert.Throws<InvalidPhoneException>(() => new User
             {
                 Addresses = [],
                 BirthDate = DateTime.Now,
@@ -58,7 +59,7 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Orders = [],
                 Phone = string.Empty,
             });
-            Assert.Equal("The Field PhoneNumber Must Be Provided !", ex.Message);
+            Assert.Equal("The Phone Number is invalid", exPhone.Message);
         }
 
         [Trait("Entity", "User")]
@@ -92,17 +93,16 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
                 Mail = mail,
                 Name = phone,
                 Orders = [],
-                Phone = "11 99 993128321",
+                Phone = "11 993128321",
             };
 
-            Phone phoneToUpdate = "56 22 999999999";
+            Phone phoneToUpdate = "22 999999999";
 
             //Act
             user.UpdatePrincipalPhone(phoneToUpdate);
 
             //Assert
             Assert.Equal("22", user.Phone.AreaCode);
-            Assert.Equal("56", user.Phone.CountryCode);
             Assert.Equal("999999999", user.Phone.PhoneNumber);
         }
 
@@ -112,15 +112,14 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
         {
             //Arrange
             var user = new Mock<User>().Object;
-            Phone phone = "56 22 999999999";
+            Phone phone = "11 999516675";
 
             //Act
             user.UpdateFaxPhone(phone);
 
             //Assert
-            Assert.Equal("22", user.Fax?.AreaCode);
-            Assert.Equal("56", user.Fax?.CountryCode);
-            Assert.Equal("999999999", user.Fax?.PhoneNumber);
+            Assert.Equal("11", user.Fax?.AreaCode);
+            Assert.Equal("999516675", user.Fax?.PhoneNumber);
         }
     }
 }
