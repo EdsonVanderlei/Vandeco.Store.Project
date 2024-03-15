@@ -4,8 +4,9 @@ namespace VandecoStore.Domain.Services
 {
     public class MailService : IMailService
     {
-        public async Task SendMail(Mail mail) {
-           
+        public async Task SendMail(Mail mail)
+        {
+
         }
     }
 
