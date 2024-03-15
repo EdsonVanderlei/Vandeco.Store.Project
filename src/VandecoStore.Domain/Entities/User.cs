@@ -1,4 +1,5 @@
-﻿using VandecoStore.Domain.ObjectValues;
+﻿using VandecoStore.Domain.Enum;
+using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -36,10 +37,10 @@ namespace VandecoStore.Domain.Entities
             }
         }
         public required DateTime BirthDate { get; init; }
-        public required List<Address> Addresses { get; init; }
-        public required Cart Cart { get; init; }
-        public required List<Order> Orders { get; init; }
-        public required List<Comment> Comments { get; init; }
+        public List<Address> Addresses { get; }
+        public Cart Cart { get; init; } = new Cart { CartItems = [] };
+        public List<Order> Orders { get; } = [];
+        public List<Comment> Comments { get; }
 
         public User() { }
 
@@ -51,6 +52,17 @@ namespace VandecoStore.Domain.Entities
         public void UpdatePrincipalPhone(Phone phone)
         {
             _phone = phone;
+        }
+
+        public void AddOrder(Order order)
+        {
+            Orders.Add(order);
+        }
+
+        public bool HasDeliveryOrder()
+        {
+            var orderStatus = Orders.SelectMany(p => p.OrdersStatus);
+            return orderStatus.Where(p => p.StatusProcessEnum != StatusProcessEnum.Delivered).Any();
         }
 
         public void UpdateFaxPhone(Phone phone)

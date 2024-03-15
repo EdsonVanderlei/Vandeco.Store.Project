@@ -1,5 +1,4 @@
-﻿using VandecoStore.Core;
-using VandecoStore.Domain.Enum;
+﻿using VandecoStore.Domain.Enum;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -8,15 +7,17 @@ namespace VandecoStore.Domain.Entities
         //EF Relations
         public required List<ProductOrder> ProductOrders { get; init; }
         private Address _address;
-        public required Address Address {
-            get => _address; 
+        public required Address Address
+        {
+            get => _address;
             init
             {
                 _address = value;
             }
         }
+        public bool IsDelivered { get; private set; } = false;
         public required List<OrderStatus> OrdersStatus { get; init; } = [];
-        public required User User { get; init; }
+        public User User { get; }
         public required Payment Payment { get; init; }
 
         public Order() { }
@@ -35,6 +36,8 @@ namespace VandecoStore.Domain.Entities
                 Order = this,
                 StatusProcessEnum = statusProcessEnum,
             });
+            if (statusProcessEnum.Equals(StatusProcessEnum.Delivered))
+                IsDelivered = true;
         }
 
         public void ChangeAddress(Address address)

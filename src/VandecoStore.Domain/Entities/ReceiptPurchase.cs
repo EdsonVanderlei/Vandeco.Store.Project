@@ -22,6 +22,7 @@ namespace VandecoStore.Domain.Entities
             init
             {
                 FailIfNullOrEmpty(value, nameof(ApprovedBy));
+                _approvedBy = value;
             }
         }
         private decimal _value;
@@ -31,6 +32,7 @@ namespace VandecoStore.Domain.Entities
             init
             {
                 FailIfLessThan(value, 0.01m, nameof(Value));
+                _value = value;
             }
         }
         public Document IssuerDocument { get; private set; }

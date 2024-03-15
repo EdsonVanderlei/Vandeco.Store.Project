@@ -37,10 +37,11 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             var order = new Mock<Order>().Object;
 
             //Act
-            order.UpdateOrderStatus("Edson", StatusProcessEnum.Preparing);
+            order.UpdateOrderStatus("Edson", StatusProcessEnum.Delivered);
 
             //Assert
-            Assert.Equal(StatusProcessEnum.Preparing, order.OrdersStatus[0].StatusProcessEnum);
+            Assert.Equal(StatusProcessEnum.Delivered, order.OrdersStatus[0].StatusProcessEnum);
+            Assert.True(order.IsDelivered);
         }
     }
 }

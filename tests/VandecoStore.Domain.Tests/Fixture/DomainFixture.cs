@@ -19,17 +19,14 @@ namespace VandecoStore.Domain.Tests.Fixture
 
             return new User
             {
-                Addresses = address,
                 BirthDate = DateTime.Now,
                 Cart  = new Cart
                 {
                     CartItems = [],
                 },
-                Comments = [],
                 Document = document,
                 Mail = mail,
                 Name = "Edson",
-                Orders = [],
                 Phone = phone,
             };
         }

@@ -1,6 +1,4 @@
-﻿using VandecoStore.Core;
-
-namespace VandecoStore.Domain.Entities
+﻿namespace VandecoStore.Domain.Entities
 {
     public class Comment : EntityValidation
     {

@@ -2,6 +2,7 @@
 using Moq.AutoMock;
 using System.Net;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Enum;
 using VandecoStore.Domain.Exceptions;
 using VandecoStore.Domain.ObjectValues;
 using VandecoStore.Domain.ObjectValues.Exceptions;
@@ -34,14 +35,11 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Act & Assert
             var ex = Assert.Throws<DomainException>(() => new User
             {
-                Addresses = [],
                 BirthDate = DateTime.Now,
                 Cart = new Mock<Cart>().Object,
-                Comments = [],
                 Document = document,
                 Mail = mail,
                 Name = string.Empty,
-                Orders = [],
                 Phone = phone,
             });
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
@@ -49,14 +47,11 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Act & Assert
             var exPhone = Assert.Throws<InvalidPhoneException>(() => new User
             {
-                Addresses = [],
                 BirthDate = DateTime.Now,
                 Cart = new Mock<Cart>().Object,
-                Comments = [],
                 Document = document,
                 Mail = mail,
                 Name = "Edson",
-                Orders = [],
                 Phone = string.Empty,
             });
             Assert.Equal("The Phone Number is invalid", exPhone.Message);
@@ -85,14 +80,11 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
 
             var user = new User
             {
-                Addresses = [],
                 BirthDate = DateTime.Now,
                 Cart = new Mock<Cart>().Object,
-                Comments = [],
                 Document = document,
                 Mail = mail,
                 Name = phone,
-                Orders = [],
                 Phone = "11 993128321",
             };
 
@@ -120,6 +112,26 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Assert
             Assert.Equal("11", user.Fax?.AreaCode);
             Assert.Equal("999516675", user.Fax?.PhoneNumber);
+        }
+
+        [Trait("Entity", "User")]
+        [Theory]
+        [InlineData(StatusProcessEnum.Delivered, false)]
+        [InlineData(StatusProcessEnum.Approved, true)]
+        [InlineData(StatusProcessEnum.Processing, true)]
+        [InlineData(StatusProcessEnum.Preparing, true)]
+        [InlineData(StatusProcessEnum.Send, true)]
+        public void User_HasDeliveryOrder_ShouldBeTrue(StatusProcessEnum statusProcessEnum, bool valueFinal)
+        {
+            //Arrange
+            var user = new Mock<User>().Object;
+            var order = new Mock<Order>().Object;
+            order.UpdateOrderStatus("Edson", statusProcessEnum);
+            user.AddOrder(order);
+
+            //Act && Assert
+            Assert.Equal(valueFinal,user.HasDeliveryOrder());
+
         }
     }
 }

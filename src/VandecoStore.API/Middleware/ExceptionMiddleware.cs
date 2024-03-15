@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.API.Middleware
 {
@@ -18,6 +19,12 @@ namespace VandecoStore.API.Middleware
             try
             {
                 await _next(context);
+            }
+            catch (DomainException ex)
+            {
+                var statusCodeResponse = HttpStatusCode.BadRequest;
+                var problemDetails = BuildProblemDetails(context.Request.Path, ex.Message, statusCodeResponse);
+                await HandleErrorResponseAsync(context, (int)statusCodeResponse, problemDetails);
             }
             catch (Exception ex)
             {
