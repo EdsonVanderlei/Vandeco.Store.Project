@@ -1,5 +1,4 @@
 ﻿using VandecoStore.Domain.DTOS;
-using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Interfaces;
 
 namespace VandecoStore.Domain.Services
@@ -12,7 +11,6 @@ namespace VandecoStore.Domain.Services
         {
             _userRepository = userRepository;
         }
-
         public async Task RegisterUser(UserRegisterDTO userRegisterDTO)
         {
             var userExists = await _userRepository.ExistsWithSameDocument(userRegisterDTO.Document);
