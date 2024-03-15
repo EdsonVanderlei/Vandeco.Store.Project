@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\src\VandecoStore.Domain\VandecoStore.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tests\NovaPasta\" />
-  </ItemGroup>
-
 </Project>

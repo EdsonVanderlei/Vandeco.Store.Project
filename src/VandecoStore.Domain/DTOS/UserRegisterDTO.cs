@@ -15,11 +15,25 @@ namespace VandecoStore.Domain.DTOS
         public Mail Mail { get;  init; }
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         public Phone Phone { get; init; }
-        [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         public Phone? Fax { get; init; }
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         public DateTime BirthDate { get; init; }
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         public List<Address?> Address { get; init; }
+
+        public User ToUser()
+        {
+            var user =  new User
+            {
+                BirthDate = BirthDate,
+                Document = Document,
+                Mail = Mail,
+                Name = Name,
+                Phone = Phone,
+                Fax = Fax,
+            };
+            user.Addresses.AddRange(Address);
+            return user;
+        }
     }
 }

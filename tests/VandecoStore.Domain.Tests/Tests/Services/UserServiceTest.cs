@@ -1,46 +1,99 @@
 ﻿using Moq;
 using Moq.AutoMock;
-using VandecoStore.Domain.DTOS;
 using VandecoStore.Domain.Entities;
+using VandecoStore.Domain.Enum;
 using VandecoStore.Domain.Interfaces;
 using VandecoStore.Domain.Services;
+using VandecoStore.Domain.Tests.Collections;
 using VandecoStore.Domain.Tests.Fixture;
 
 namespace VandecoStore.Domain.Tests.Tests.Services
 {
-    [Collection(nameof(DomainCollection))]
+    [Collection(nameof(UserServiceAndDomainCollection))]
     public class UserServiceTest
     {
-        readonly DomainTestFixture _fixture;
+        readonly DomainTestFixture _domainFixture;
+        readonly UserServiceTestFixture _userServiceFixture;
 
-        public UserServiceTest(DomainTestFixture fixture)
+        public UserServiceTest(DomainTestFixture domainFixture, UserServiceTestFixture userServiceFixture)
         {
-            _fixture = fixture;
+            _domainFixture = domainFixture;
+            _userServiceFixture = userServiceFixture;
         }
 
+        [Trait("Services", "User")]
         [Fact]
         public async Task UserService_RegisterUser_ThrowsException()
         {
             //Arrange
+            var address = _domainFixture.GenerateValidAddress();
+            var userRegisterDTO = _userServiceFixture.GenerateValidUserRegisterDTO();
             var mocker = new AutoMocker();
-            var userServiceMock = mocker.CreateInstance<UserService>();
-            var address = _fixture.GenerateValidAddress();
-            var userRegisterDTO = new UserRegisterDTO
-            {
-                Address = address,
-                BirthDate = DateTime.UtcNow,
-                Document = "5137273723",
-                Fax = "11 999121249",
-                Mail = "edson@gmail.com",
-                Name = "Test",
-                Phone = "11 999121249"
-            };
             var userRepository = mocker.GetMock<IUserRepository>();
-            userRepository.Setup(p => p.ExistsWithSameDocument())
+            userRepository.Setup(p => p.ExistsWithSameDocument(It.IsAny<string>())).ReturnsAsync(true);
+            var userServiceMock = new UserService(userRepository.Object);
+
+            //Act && Assert
+            var ex = await Assert.ThrowsAsync<Exception>(() => userServiceMock.RegisterUser(userRegisterDTO));
+            Assert.Equal("User Already Exists !", ex.Message);
+        }
+
+        [Trait("Services", "User")]
+        [Fact]
+        public async Task UserService_RegisterUser_UserShouldBeRegister()
+        {
+            //Arrange
+            var address = _domainFixture.GenerateValidAddress();
+            var userRegisterDTO = _userServiceFixture.GenerateValidUserRegisterDTO();
+            var mocker = new AutoMocker();
+            var userRepository = mocker.GetMock<IUserRepository>();
+            userRepository.Setup(p => p.ExistsWithSameDocument(It.IsAny<string>())).ReturnsAsync(false);
+            var userService = new UserService(userRepository.Object);
+
+            //Act 
+            await userService.RegisterUser(userRegisterDTO);
+
+            // Assert
+            userRepository.Verify(p => p.Add(It.IsAny<User>()), Times.Once);
+        }
+
+        [Trait("Services", "User")]
+        [Fact]
+        public async Task UserService_DeleteUser_ThrowsException()
+        {
+            //Arrange
+            var user = _domainFixture.GenerateValidUser();
+            var order = new Mock<Order>().Object;
+            order.UpdateOrderStatus(
+                    "Edson",
+                    StatusProcessEnum.Processing
+            );
+            user.AddOrder(order);
+            var userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(p => p.GetById(It.IsAny<Guid>())).ReturnsAsync(user);
+            var userService = new UserService(userRepository.Object);
+
+            // Act && Assert
+            var ex = await Assert.ThrowsAsync<Exception>(() => userService.DeleteUser(user.Id));
+            Assert.Equal("Open Orders, Cannot Delete The User !", ex.Message);
+        }
+
+        [Trait("Services", "User")]
+        [Fact]
+        public async Task UserService_DeleteUser_UserShouldBeDelete()
+        {
+            //Arrange
+            var user = _domainFixture.GenerateValidUser();
+            var userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(p => p.GetById(It.IsAny<Guid>())).ReturnsAsync(user);
+            var userService = new UserService(userRepository.Object);
 
             //Act
-            await userServiceMock.RegisterUser(userRegisterDTO);
+            await userService.DeleteUser(user.Id);
+
             //Assert
+            userRepository.Verify(p => p.Remove(It.IsAny<Guid>()), Times.Once);
+
         }
     }
 }

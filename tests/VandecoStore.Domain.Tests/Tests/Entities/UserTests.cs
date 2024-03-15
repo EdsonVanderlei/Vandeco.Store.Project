@@ -131,7 +131,6 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
 
             //Act && Assert
             Assert.Equal(valueFinal,user.HasDeliveryOrder());
-
         }
     }
 }

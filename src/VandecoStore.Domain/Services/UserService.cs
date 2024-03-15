@@ -17,14 +17,7 @@ namespace VandecoStore.Domain.Services
         {
             var userExists = await _userRepository.ExistsWithSameDocument(userRegisterDTO.Document);
             if (userExists) throw new Exception("User Already Exists !");
-            var user = new User
-            {
-                BirthDate = userRegisterDTO.BirthDate,
-                Document = userRegisterDTO.Document,
-                Mail = userRegisterDTO.Mail,
-                Name = userRegisterDTO.Name,
-                Phone = userRegisterDTO.Phone,
-            };
+            var user = userRegisterDTO.ToUser();
             await _userRepository.Add(user);
         }
 

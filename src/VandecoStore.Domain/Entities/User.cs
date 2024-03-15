@@ -37,7 +37,7 @@ namespace VandecoStore.Domain.Entities
             }
         }
         public required DateTime BirthDate { get; init; }
-        public List<Address> Addresses { get; }
+        public List<Address> Addresses { get; } = [];
         public Cart Cart { get; init; } = new Cart { CartItems = [] };
         public List<Order> Orders { get; } = [];
         public List<Comment> Comments { get; }
