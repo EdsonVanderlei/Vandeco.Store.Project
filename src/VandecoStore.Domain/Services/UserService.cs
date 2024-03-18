@@ -11,6 +11,7 @@ namespace VandecoStore.Domain.Services
         {
             _userRepository = userRepository;
         }
+
         public async Task RegisterUser(UserRegisterDTO userRegisterDTO)
         {
             var userExists = await _userRepository.ExistsWithSameDocument(userRegisterDTO.Document);
@@ -18,6 +19,7 @@ namespace VandecoStore.Domain.Services
             var user = userRegisterDTO.ToUser();
             await _userRepository.Add(user);
         }
+
         public async Task DeleteUser(Guid userId)
         {
             var user = await _userRepository.GetById(userId) ?? throw new Exception("User Not Found !");

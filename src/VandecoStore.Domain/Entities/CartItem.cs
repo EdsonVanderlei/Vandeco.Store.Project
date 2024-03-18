@@ -1,5 +1,4 @@
-﻿using VandecoStore.Core;
-using VandecoStore.Domain.Exceptions;
+﻿using VandecoStore.Domain.Exceptions;
 
 namespace VandecoStore.Domain.Entities
 {
@@ -19,16 +18,10 @@ namespace VandecoStore.Domain.Entities
 
         public CartItem() { }
 
-        public void AddQuantity(int quantity)
-        {
-            _quantity += Math.Abs(quantity);
-        }
-
-        public void RemoveQuantity(int quantity)
+        public void UpdateQuantity(int quantity)
         {
             AssertionConcern.AssertArgumentTrue(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity !");
-            _quantity -= Math.Abs(quantity);
-
+            _quantity = Math.Abs(quantity);
         }
 
         public bool ValidateQuantity(int quantity)

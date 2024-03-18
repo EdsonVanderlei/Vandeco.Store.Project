@@ -19,7 +19,7 @@ namespace VandecoStore.Domain.DTOS
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         public DateTime BirthDate { get; init; }
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
-        public List<Address?> Address { get; init; }
+        public List<Address> Address { get; init; }
 
         public User ToUser()
         {

@@ -1,6 +1,4 @@
-﻿using VandecoStore.Domain.Exceptions;
-
-namespace VandecoStore.Domain.ObjectValues.Exceptions;
+﻿namespace VandecoStore.Domain.ObjectValues.Exceptions;
 
 public class InvalidEmailException : Exception
 {

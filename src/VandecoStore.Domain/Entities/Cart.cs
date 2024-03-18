@@ -1,4 +1,6 @@
-﻿namespace VandecoStore.Domain.Entities
+﻿using VandecoStore.Domain.Exceptions;
+
+namespace VandecoStore.Domain.Entities
 {
     public class Cart : EntityValidation
     {
@@ -7,9 +9,14 @@
 
         public Cart() { }
 
-        public void AddCartItem(Product product, int quantity)
+        public void ClearCart()
         {
+            CartItems.Clear();
+        }
 
+        public void UpdateCartItems(Product product, int quantity)
+        {
+            if (quantity < 0) throw new DomainException("The Field Must Be Greather Than 0 !");
             var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product));
             if (cartItemFound is null)
             {
@@ -20,13 +27,7 @@
                 });
                 return;
             }
-            cartItemFound.AddQuantity(quantity);
-        }
-
-        public void RemoveCartItem(Product product, int quantity)
-        {
-            var cartItemFound = CartItems.FirstOrDefault(p => p.Product.Equals(product)) ?? throw new InvalidOperationException("Item Not Found In Cart");
-            cartItemFound.RemoveQuantity(quantity);
+            cartItemFound.UpdateQuantity(quantity);
             if (cartItemFound.Quantity == 0)
                 CartItems.Remove(cartItemFound);
         }
