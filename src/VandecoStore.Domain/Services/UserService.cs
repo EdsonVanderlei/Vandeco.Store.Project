@@ -18,7 +18,6 @@ namespace VandecoStore.Domain.Services
             var user = userRegisterDTO.ToUser();
             await _userRepository.Add(user);
         }
-
         public async Task DeleteUser(Guid userId)
         {
             var user = await _userRepository.GetById(userId) ?? throw new Exception("User Not Found !");
