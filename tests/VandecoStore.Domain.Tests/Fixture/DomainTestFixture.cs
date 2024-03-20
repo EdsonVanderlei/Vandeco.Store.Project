@@ -20,7 +20,7 @@ namespace VandecoStore.Domain.Tests.Fixture
             return new User
             {
                 BirthDate = DateTime.Now,
-                Cart  = new Cart
+                Cart = new Cart
                 {
                     CartItems = [],
                 },
@@ -48,13 +48,11 @@ namespace VandecoStore.Domain.Tests.Fixture
             return new Product
             {
                 Name = "Produto tal",
-                ProductOrders = [],
                 Quantity = quantity,
                 Brand = new Mock<Brand>().Object,
                 Price = price,
-                CartItems = [],
+                Description = "Description",
                 Category = CategoryEnum.Notebook,
-                Comments = [],
             };
         }
 
@@ -85,7 +83,7 @@ namespace VandecoStore.Domain.Tests.Fixture
 
         public Phone GenerateValidPhone()
         {
-            return new Phone( "11", "999932913");
+            return new Phone("11", "999932913");
         }
 
         public void Dispose()

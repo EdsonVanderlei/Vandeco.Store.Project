@@ -4,7 +4,7 @@ using VandecoStore.Domain.ObjectValues;
 
 namespace VandecoStore.Domain.DTOS
 {
-    public class UserRegisterDTO
+    public record class UserRegisterDTO
     {
         [Required(ErrorMessage = "The Field {0} Must Be Provided !")]
         [StringLength(100,ErrorMessage = "The Field {0} Must Be Greather Than {2} and Less Than {1}", MinimumLength = 5)]

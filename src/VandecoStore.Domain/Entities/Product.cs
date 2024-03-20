@@ -1,4 +1,4 @@
-﻿using VandecoStore.Core;
+﻿using System.Collections.ObjectModel;
 using VandecoStore.Domain.Enum;
 using VandecoStore.Domain.Exceptions;
 
@@ -16,6 +16,8 @@ namespace VandecoStore.Domain.Entities
                 _name = value;
             }
         }
+        private bool _active = true;
+        public bool Active { get => _active; }
         private decimal _price;
         public required decimal Price
         {
@@ -37,7 +39,7 @@ namespace VandecoStore.Domain.Entities
         }
         public required CategoryEnum Category { get; init; }
         private string _description;
-        public string Description
+        public required string Description
         {
             get => _description;
             init
@@ -47,9 +49,10 @@ namespace VandecoStore.Domain.Entities
             }
         }
         public required Brand Brand { get; init; }
-        public required List<Comment> Comments { get; init; } = [];
-        public required List<ProductOrder> ProductOrders { get; init; }
-        public required List<CartItem> CartItems { get; init; }
+        private List<Comment> _comments = [];
+        public ReadOnlyCollection<Comment> Comments { get => _comments.AsReadOnly(); }
+        public List<ProductOrder> ProductOrders { get; }
+        public List<CartItem> CartItems { get; }
 
         public Product() { }
 
@@ -62,17 +65,17 @@ namespace VandecoStore.Domain.Entities
         public void RemoveComment(Comment comment)
         {
             var commentFound = Comments.FirstOrDefault(p => p.Id == comment.Id) ?? throw new DomainException("Comment Not Found !");
-            Comments.Remove(comment);
+            _comments.Remove(comment);
         }
 
         private bool ValidateQuantity(int quantity)
         {
-            return Quantity - Math.Abs(quantity) <= 0;
+            return Quantity <= Math.Abs(quantity);
         }
 
         public void AddComment(Comment comment)
         {
-            Comments.Add(comment);
+            _comments.Add(comment);
         }
 
         public void AddQuantity(int quantity)
@@ -80,10 +83,19 @@ namespace VandecoStore.Domain.Entities
             _quantity += Math.Abs(quantity);
         }
 
+        public void ActivateProduct()
+        {
+            _active = true;
+        }
+
+        public void DesactivateProduct()
+        {
+            _active = false;
+        }
+
         public void RemoveQuantity(int quantity)
         {
             AssertionConcern.AssertStateFalse(ValidateQuantity(quantity), "The Quantity To Remove Is Greather Than Actual Quantity");
-
             _quantity -= Math.Abs(quantity);
         }
 

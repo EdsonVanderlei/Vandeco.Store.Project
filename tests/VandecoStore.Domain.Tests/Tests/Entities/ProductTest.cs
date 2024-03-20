@@ -19,11 +19,9 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             {
                 Name = string.Empty,
                 Brand = brand,
-                CartItems = [],
                 Category = CategoryEnum.Notebook,
-                Comments = [],
                 Price = 1,
-                ProductOrders = [],
+                Description = "Description", 
                 Quantity = 1,
             });
             Assert.Equal("The Field Name Must Be Provided !", ex.Message);
@@ -33,14 +31,24 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             {
                 Name = "Ola",
                 Brand = brand,
-                CartItems = [],
+                Description = "Description",
                 Category = CategoryEnum.Notebook,
-                Comments = [],
                 Price = 0,
-                ProductOrders = [],
                 Quantity = 1,
             });
             Assert.Equal("The Field Price Must Be Greather Than 0,00 !", ex.Message);
+
+            //Act && Assert
+            ex = Assert.Throws<DomainException>(() => new Product
+            {
+                Name = "ola",
+                Brand = brand,
+                Category = CategoryEnum.Notebook,
+                Price = 1,
+                Description = string.Empty,
+                Quantity = 1,
+            });
+            Assert.Equal("The Field Description Must Be Provided !", ex.Message);
         }
 
         [Trait("Entity", "Product")]
@@ -178,6 +186,35 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
 
             //Assert
             Assert.Equal(1, product.Quantity);
+        }
+
+        [Trait("Entity","Product")]
+        [Fact]
+        public void Product_ActiveProduct_ProductShouldBeActiveted()
+        {
+            //Arrange 
+            var product = new Mock<Product>().Object;
+            product.DesactivateProduct();
+
+            //Act 
+            product.ActivateProduct();
+
+            //Assert 
+            Assert.True(product.Active);
+        }
+
+        [Trait("Entity", "Product")]
+        [Fact]
+        public void Product_DesactiveProduct_ProductShouldBeDesactiveted()
+        {
+            //Arrange 
+            var product = new Mock<Product>().Object;
+
+            //Act 
+            product.DesactivateProduct();
+
+            //Assert 
+            Assert.False(product.Active);
         }
     }
 }

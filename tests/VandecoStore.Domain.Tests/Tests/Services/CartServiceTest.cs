@@ -80,19 +80,43 @@ namespace VandecoStore.Domain.Tests.Tests.Services
             //Assert 
             Assert.Single(user.Cart.CartItems);
             Assert.Equal(3, user.Cart.CartItems.First().Quantity);
-            userRepository.Verify(p => p.SaveChanges()),Times.Once);
+            userRepository.Verify(p => p.SaveChanges(),Times.Once);
         }
 
         [Fact]
-        public void CartService_ClearCart_ThrowsException()
+        public async Task CartService_ClearCart_ThrowsException()
         {
             //Arrange 
             var userRepository = new Mock<IUserRepository>();
             userRepository.Setup(p => p.GetUserWithCart(It.IsAny<Guid>())).ReturnsAsync(value: null);
+            var cartService = new CartService
+            {
+                _productRepository = new Mock<IProductRepository>().Object,
+                _userRepository = userRepository.Object,    
+            };
 
             //Act && Assert
-            Assert.ThrowsAsync<DomainException>(() => )
+            var ex = await Assert.ThrowsAsync<DomainException>(() => cartService.ClearCart(Guid.NewGuid()));
+            Assert.Equal("User Not Found !", ex.Message);
+        }
 
+        [Fact]
+        public async Task CartService_ClearCart_CartShouldBeClean()
+        {
+            //Arrange 
+            var userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(p => p.GetUserWithCart(It.IsAny<Guid>())).ReturnsAsync(value: new Mock<User>().Object);
+            var cartService = new CartService
+            {
+                _productRepository = new Mock<IProductRepository>().Object,
+                _userRepository = userRepository.Object,
+            };
+
+            //Act 
+            await cartService.ClearCart(Guid.NewGuid());
+
+            //Assert
+            userRepository.Verify(p => p.SaveChanges(),Times.Once);
         }
     }
 }
