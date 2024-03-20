@@ -31,8 +31,6 @@ namespace VandecoStore.Domain.ObjectValues
             return new Phone(data[0], data[1]);
         }
 
-
-
         public Phone() { }
     }
 }
