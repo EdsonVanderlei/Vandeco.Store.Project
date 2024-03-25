@@ -16,6 +16,7 @@ namespace VandecoStore.Data.Entities
         public required CartDb Cart { get; init; }
         public required List<OrderDb> Orders { get; init; }
         public required List<CommentDb> Comments { get; init; }
+        public required List<TokenDb> Tokens { get; init; }
 
         public UserDb() { }
 

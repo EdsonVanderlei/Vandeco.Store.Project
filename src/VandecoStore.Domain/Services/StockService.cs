@@ -20,6 +20,7 @@ namespace VandecoStore.Domain.Services
             product.AddQuantity(quantity);
             await _productRepository.Update(product);
         }
+
     }
 
     public interface IStockService

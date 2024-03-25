@@ -1,4 +1,5 @@
 ﻿using VandecoStore.Domain.DTOS;
+using VandecoStore.Domain.Entities;
 using VandecoStore.Domain.Exceptions;
 using VandecoStore.Domain.Interfaces;
 
@@ -24,6 +25,12 @@ namespace VandecoStore.Domain.Services
             }
 
             await _userRepository.SaveChanges();
+        }
+
+        public async Task<List<CartItem>> GetCartItemsFromUser(Guid userId)
+        {
+            var user = await _userRepository.GetById(userId) ?? throw new DomainException("User Not Found !");
+            return user.Cart.CartItems;
         }
 
         public async Task ClearCart(Guid userId)
