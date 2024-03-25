@@ -20,6 +20,8 @@ namespace VandecoStore.Data.Context
         public DbSet<PaymentDb> Payments { get; set; }
         public DbSet<ProductDb> Products { get; set; }
         public DbSet<ProductOrderDb> ProductOrders { get; set; }
+        public DbSet<TokenDb> Tokens { get; set; }
+        public DbSet<ReceiptPurchaseDb> ReceiptPurchases { get; set; }
         public DbSet<UserDb> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

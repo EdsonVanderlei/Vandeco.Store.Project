@@ -41,6 +41,7 @@ namespace VandecoStore.Domain.Entities
         public Cart Cart { get; init; } = new Cart { CartItems = [] };
         public List<Order> Orders { get; } = [];
         public List<Comment> Comments { get; }
+        public List<Token> Tokens { get; }
 
         public User() { }
 

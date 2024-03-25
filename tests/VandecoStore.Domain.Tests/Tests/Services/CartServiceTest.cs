@@ -118,5 +118,27 @@ namespace VandecoStore.Domain.Tests.Tests.Services
             //Assert
             userRepository.Verify(p => p.SaveChanges(),Times.Once);
         }
+
+        [Fact]
+        public async Task CartService_GetCartItemsFromUser()
+        {
+            //Arrange 
+            var user = new Mock<User>().Object;
+            user.Cart.UpdateCartItems(new Mock<Product>().Object,2);
+            var userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(p => p.GetUserWithCart(It.IsAny<Guid>())).ReturnsAsync(value:  user);
+            var cartService = new CartService
+            {
+                _productRepository = new Mock<IProductRepository>().Object,
+                _userRepository = userRepository.Object,
+            };
+
+            //Act
+            var items = await cartService.GetCartItemsFromUser(Guid.NewGuid());
+
+            //Assert
+            Assert.Single(items);
+
+        }
     }
 }
