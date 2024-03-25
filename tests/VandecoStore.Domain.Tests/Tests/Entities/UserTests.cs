@@ -132,5 +132,19 @@ namespace VandecoStore.Domain.Tests.Tests.Entities
             //Act && Assert
             Assert.Equal(valueFinal,user.HasDeliveryOrder());
         }
+
+        [Fact]
+        public void User_AddAddress_ShouldBeAdded()
+        {
+            //Arrange
+            var address  = _domainTestFixture.GenerateValidAddress();
+            var user = new Mock<User>().Object;
+
+            //Act 
+            user.AddAddress(address.First());
+
+            //Assert
+            Assert.Single(user.Addresses);
+        }
     }
 }

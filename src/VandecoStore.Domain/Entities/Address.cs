@@ -86,9 +86,9 @@ namespace VandecoStore.Domain.Entities
         }
 
         //EF Relations 
-        public List<Order> Orders { get; private set; }
+        public List<Order> Orders { get; init; }
 
-        public required User User { get; init; }
+        public User User { get; init; }
 
         public void UpdateAddress(Address address)
         {

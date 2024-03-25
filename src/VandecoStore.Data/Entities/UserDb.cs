@@ -23,7 +23,7 @@ namespace VandecoStore.Data.Entities
         {
             return new User
             {
-                Addresses = Addresses.Select(p => p.ToAddress()).ToList(),
+                Addresses = Addresses.Select(p => p.ToAddress()).ToList().AsReadOnly(),
                 BirthDate = BirthDate,
                 Cart = Cart.ToCart(),
                 Comments = Comments.Select(p => p.ToComment()).ToList(),

@@ -32,7 +32,7 @@ namespace VandecoStore.Domain.DTOS
                 Phone = Phone,
                 Fax = Fax,
             };
-            user.Addresses.AddRange(Address);
+            
             return user;
         }
     }

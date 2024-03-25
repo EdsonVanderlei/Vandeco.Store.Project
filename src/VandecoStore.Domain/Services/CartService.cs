@@ -9,6 +9,11 @@ namespace VandecoStore.Domain.Services
         public required IUserRepository _userRepository { private get; init; }
         public required IProductRepository _productRepository { private get; init; }
 
+        public async Task GetCartItems(Guid userId)
+        {
+            return 
+        }
+
         public async Task UpdateCartItems(List<CartItemDTO> cartItemsDTO, Guid userId)
         {
             var userWithCart = await _userRepository.GetUserWithCart(userId) ?? throw new DomainException("User Not Found !");
